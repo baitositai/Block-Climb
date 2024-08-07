@@ -16,6 +16,7 @@ const std::string Application::PATH_BLOCK = "Data/Image/Block/";
 
 void Application::CreateInstance(void)
 {
+	//インスタンスがあるとき
 	if (instance_ == nullptr)
 	{
 		instance_ = new Application();
