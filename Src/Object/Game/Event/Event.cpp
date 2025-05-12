@@ -33,7 +33,7 @@ void Event::Update()
 
 	if (efeState_ != EFECT::NONE)
 	{		
-		if (size_ < 1.0f || size_ >= 1.5f)
+		if (size_ < EFFECT_RATE_MIN || size_ >= EFFECT_RATE_MAX)
 		{
 			efectAnimSpeed_ *= -1;
 		}

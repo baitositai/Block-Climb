@@ -3,6 +3,14 @@
 #include "../../../Manager/SceneManager.h"
 #include "../../../Manager/SoundManager.h"
 
+Block6::Block6()
+{
+}
+
+Block6::~Block6()
+{
+}
+
 void Block6::HitUpdate(Vector2 pos)
 {
     minoPos_.y = pos.y * BLOCK_SIZE_Y;

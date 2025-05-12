@@ -10,7 +10,7 @@ void Side4::Reset()
 	SideBase::Reset();
 
 	//画像の種類の決定
-	sideBlockType_ = 3;
+	sideBlockType_ = SIDE_IMG_INDEX;
 }
 
 void Side4::Update()
@@ -19,30 +19,36 @@ void Side4::Update()
 
 void Side4::Draw(void)
 {
-	SideBase::Draw();
-	
-	//間隔
-	int intervalX = 5;
-	int intervalY = 10;
+    SideBase::Draw();
 
-	//フチあり四角の描画
-	int border = 3;
-	Vector2 boxPos1 = { rightPos_.x - SIDE_DRAW_SIZE_X / 2 + intervalX * 8,150 };
-	Vector2 boxSize1 = { rightSideSize_.x - intervalX * 16,120 };
-	SideBase::WBorderRectangle(boxSize1, boxPos1, border);
+    Vector2 boxPos1 = {
+    rightPos_.x - SIDE_DRAW_SIZE_X / 2 + INTERVAL_X * BOX_MARGIN_X_COUNT,
+    BOX_POS_Y
+    };
 
-	//テキスト描画
-	DrawFormatStringToHandle(boxPos1.x + intervalX,
-		boxPos1.y + intervalY,
-		0xf00fff,
-		normalFont_,
-		"現在の高さ");
+    Vector2 boxSize1 = {
+        rightSideSize_.x - INTERVAL_X * BOX_WIDTH_MARGIN_COUNT,
+        BOX_HEIGHT
+    };
 
-	//データの描画
-	DrawFormatStringToHandle(boxPos1.x + intervalX * 2,
-		boxPos1.y + FONT_SIZE + intervalY,
-		0xffffff,
-		dataFont_,
-		"%d m",
-		level_->GetBlockHeight());
+    SideBase::WBorderRectangle(boxSize1, boxPos1, BOX_BORDER);
+
+    //テキスト描画
+    DrawFormatStringToHandle(
+        boxPos1.x + INTERVAL_X,
+        boxPos1.y + INTERVAL_Y,
+        0xf00fff,
+        normalFont_,
+        "現在の高さ"
+    );
+
+    //データの描画
+    DrawFormatStringToHandle(
+        boxPos1.x + INTERVAL_X * 2,
+        boxPos1.y + FONT_SIZE + INTERVAL_Y,
+        0xffffff,
+        dataFont_,
+        "%d m",
+        level_->GetBlockHeight()
+    );
 }

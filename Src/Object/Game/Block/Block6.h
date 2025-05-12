@@ -17,20 +17,35 @@ public:
 	//更新ライン
 	static constexpr int UPDATE_LINE = 10;
 
+	//コンストラクタ
+	Block6();
+
+	//デストラクタ
+	~Block6();
+
+	//所と辻の更新処理
 	void HitUpdate(Vector2 pos) override;
+
+	//リセット
 	void Reset(void) override;
+
+	//ステージ生成
 	void StageCreate(void) override;
+
+	//ライン削除
 	void LineDelete(void) override;
+
+	//高さの更新
 	void HeightUpdate();
+
+	//指定した値から高さを調べる
 	void CheckHeight(int y) override;
 
-#pragma region 爆発関係
 	// 有効な爆発を取得する
 	Blast* GetValidBlast(void);
 
 	//ラインを爆発させる
 	void BlastLine(int y, int x, int i);
-#pragma endregion
 
 private:
 

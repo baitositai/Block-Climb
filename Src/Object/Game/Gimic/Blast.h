@@ -16,7 +16,6 @@ public:
 		BLAST
 	};
 
-#pragma region 画像関連	
 	//画像分割数
 	static constexpr int BLAST_X = 16;
 	static constexpr int BLAST_Y = 1;
@@ -30,7 +29,12 @@ public:
 
 	//衝突判定サイズ
 	static constexpr int HIT_SIZE = 48;
-#pragma endregion
+
+	//爆発アニメーションスピード
+	static constexpr float ANIM_SPEED = 0.3f;
+
+	//爆発アニメーションインデックスオフセット
+	static constexpr int BLAST_ANIM_OFFSET = 4;
 
 	Blast(void);								//コンストラクタ
 	~Blast(void);								//デストラクタ

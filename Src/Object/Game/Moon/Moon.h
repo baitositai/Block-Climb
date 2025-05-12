@@ -34,14 +34,40 @@ public:
 	//半径
 	static constexpr int RADIUS = SIZE_X / 2;
 
+	//揺らす周波数
+	static constexpr float AMPLITUDE = 1.0f;
+
+	//揺らす振幅
+	static constexpr float FREQUENCY = 5.0f;
+
+	//拡大速度
+	static constexpr float EXPANSION_SPEED = 0.2f;
+
+	//拡大率
+	static constexpr float SIZE_MAX_RATE = 30.0f;
+
+	//コンストラクタ
 	Moon();
+
+	//デストラクタ
 	~Moon();
 
+	//初期化
 	void Init(LevelManager* parent);
+
+	//リセット
 	virtual void Reset();
+
+	//更新
 	virtual void Update();
+
+	//描画
 	virtual void Draw();
+
+	//解放
 	void Release();
+
+	//読み込み
 	void Load();
 
 	//判定の設定
@@ -53,7 +79,10 @@ public:
 	//判定を返す
 	bool IsMoon(MOON_TYPE type);
 
+	//位置設定
 	void SetPos(MOON_TYPE type, Vector2F pos);
+
+	//初期位置の設定
 	void SetFirstPos(MOON_TYPE type, Vector2F pos);
 
 	//座標を返す

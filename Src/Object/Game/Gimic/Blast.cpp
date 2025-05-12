@@ -50,7 +50,7 @@ void Blast::Create(LevelManager* parent, BlockBase* block,Vector2 pos, float coo
     blastIdxAnim_ = 0;
 
     //爆発のアニメーション速度
-    blastSpeedAnim_ = 0.3f;
+    blastSpeedAnim_ = ANIM_SPEED;
 
     //爆発の生成カウント
     createCnt_ = 0.0f;
@@ -107,7 +107,7 @@ void Blast::Update(void)
         }
 
         //爆発アニメーションの終了判定
-        if (blastIdxAnim_ >= BLAST_ANIM_NUM - 4)
+        if (blastIdxAnim_ >= BLAST_ANIM_NUM - BLAST_ANIM_OFFSET)
         {
             //判定をなくす
             size_ = { 0,0 };
@@ -137,7 +137,7 @@ void Blast::Draw(void)
             1.0f,	//拡大
             0.0f,	//回転
             imgBlasts_[blastIdxAnim_],
-            true,	//分からん
+            true,	//透過
             false);	//向き  
     }
 }

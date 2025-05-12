@@ -5,6 +5,14 @@
 #include "../Moon/Moon.h"
 
 
+Block5::Block5()
+{
+}
+
+Block5::~Block5()
+{
+}
+
 void Block5::Init(LevelManager* parent)
 {
     level_ = parent;
@@ -67,7 +75,6 @@ void Block5::Update()
     Vector2 mino = minoPos_.ToVector2();
     mino.x -= level_->GetGameCenter().x;
     Vector2 fieldMinoPos = level_->Field2Pos(mino);
-    /*if (fieldMinoPos.y < 0) { fieldMinoPos.y *= -1; }*/
 
     //ブロック同士で重なった時
     if (IsHitField(fieldMinoPos.x, fieldMinoPos.y, minoType_))
@@ -130,7 +137,7 @@ void Block5::Reset(void)
     //月のインスタンス
     moon_ = level_->GetMoonInstans();
 
-    minoPos_ = { -500, -500 };
+    minoPos_ = { MINO_DEFAULT_POS,MINO_DEFAULT_POS };
 
 }
 
@@ -163,8 +170,6 @@ void Block5::StageCreate(void)
             }
         }
     }
-
-    //--------------------------------------------------------------------
 
     //家の形にブロックを置いてもらう
     for (int i = 0; i < fieldHeight_; ++i)
@@ -263,8 +268,8 @@ void Block5::PutBlockZoneDraw()
                     i * BLOCK_SIZE_Y - cameraPos.y,
                     1.0f,	//拡大
                     0.0f,	//回転
-                    imgBlocks_[7],
-                    true,	//分からん
+                    imgBlocks_[MINO_TYPES],
+                    true,	//透過
                     false);	//向き
             }
         }

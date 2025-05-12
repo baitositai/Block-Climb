@@ -54,7 +54,6 @@ void RabbitText::Release()
 
 void RabbitText::InitFont()
 {
-   /* font_ = CreateFontToHandle("ベストテンDOT", fontSize_, 3);*/
     font_ = CreateFontToHandle("ぼくたちのゴシック", FONT_SIZE, FONT_THICK);
 }
 

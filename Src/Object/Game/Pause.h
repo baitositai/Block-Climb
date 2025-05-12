@@ -47,8 +47,8 @@ public:
 	static constexpr float FREQUENCY = 5.0f;
 
 	//ポーズUI位置
-	static constexpr int PAUSE_UI_POS_X = Application::SCREEN_SIZE_X;
-	static constexpr int PAUSE_UI_POS_Y = Application::SCREEN_SIZE_Y - 200;
+	static constexpr int PAUSE_UI_POS_X = Application::SCREEN_SIZE_X / 2;
+	static constexpr int PAUSE_UI_POS_Y = Application::SCREEN_SIZE_Y / 2- 200;
 
 	//テキストの描画間隔
 	static constexpr int TEXT_INTERVAL = static_cast<int>(FONT_SIZE * 1.7f);

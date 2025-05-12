@@ -7,7 +7,12 @@ class SideBase
 {
 public:
 
-#pragma region 画像関連
+	//フォントサイズ
+	static constexpr int FONT_SIZE = 32;
+
+	//フォント太さ
+	static constexpr int FONT_THICK = 3;
+
 	//サイド画面に用いる画像サイズ
 	static constexpr int SIDE_IMAGE_SIZE_X = 50;
 	static constexpr int SIDE_IMAGE_SIZE_Y = 50;
@@ -21,21 +26,64 @@ public:
 
 	//種類総数
 	static constexpr int SIDE_IMAGES = SIDE_IMAGES_X * SIDE_IMAGES_Y;
-#pragma endregion
 
-#pragma region フォント関連
-	static constexpr int FONT_SIZE = 32;
+	//描画ブロック数（横）
+	static constexpr int DRAW_BLOCK_X = 8;
+
+	//描画ブロック数の余分な縦追加数
+	static constexpr int DRAW_BLOCK_Y_EXTRA = 2;
+
+	//サイドブロックの初期タイプ
+	static constexpr int INIT_SIDE_BLOCK_TYPE = 0;
+
+	//右端位置の補正値
+	static constexpr int RIGHT_POS_OFFSET = 5;
+
+	//フォントデータサイズ
 	static constexpr int FONT_DATA_SIZE = 64;
-#pragma endregion
 
-	SideBase(void);							//コンストラクタ
-	~SideBase(void);						//デストラクタ
+	// Nextブロック表示枠のボーダーサイズ
+	static constexpr int NEXT_BLOCK_BORDER = 3;
 
-	void Init(LevelManager* parent);		//初期化処理（最初の一回のみ実行)
-	virtual void Reset();					//変数初期化処理
-	virtual void Update(void);				//更新処理（毎度実行）
-	virtual void Draw(void);				//描画処理（毎度実行）
-	void Release(void);						//解放処理 (終了時一回のみ実行)
+	// Nextブロック表示の間隔
+	static constexpr int NEXT_BLOCK_INTERVAL_X = 40;
+	static constexpr int NEXT_BLOCK_INTERVAL_Y = 20;
+
+	// Nextブロック表示枠の位置
+	static constexpr int NEXT_BLOCK_BOX_POS_X = NEXT_BLOCK_INTERVAL_X;
+	static constexpr int NEXT_BLOCK_BOX_POS_Y = 150;
+
+	// Nextブロック表示枠のサイズ
+	static constexpr int NEXT_BLOCK_BOX_SIZE_X = 160; // 値は実行時に調整されているが仮で設定
+	static constexpr int NEXT_BLOCK_BOX_SIZE_Y = 220;
+
+	//NextブロックのY方向オフセット倍率
+	static constexpr int NEXT_BLOCK_Y_OFFSET_RATE = 3;
+
+	//時間
+	static constexpr int SECONDS_IN_AN_HOUR = 3600;
+	static constexpr int SECONDS_IN_A_MINUTE = 60;
+
+	//コンストラクタ
+	SideBase(void);	
+	
+	//デストラクタ						
+	~SideBase(void);						
+
+	//初期化処理（最初の一回のみ実行)
+	void Init(LevelManager* parent);
+	
+	//変数初期化処理		
+	virtual void Reset();		
+	
+	//更新処理（毎度実行）			
+	virtual void Update(void);		
+	
+	//描画処理（毎度実行）		
+	virtual void Draw(void);					
+	
+	//解放処理 (終了時一回のみ実行)
+	void Release(void);					
 
 	//フォント設定
 	virtual void SetFont();
@@ -48,15 +96,12 @@ public:
 
 protected:
 	
-#pragma region 画像関連
 	//画像の格納用
 	int imgSideBlock_[SIDE_IMAGES];
 
 	//サイド画面の種類
 	int sideBlockType_;
-#pragma endregion
 
-#pragma region フォント関連
 	//フォント
 	int normalFont_;
 
@@ -68,9 +113,7 @@ protected:
 
 	//数字用フォントサイズ
 	int dataFontSize_;
-#pragma endregion
 
-#pragma region サイド画面関係
 	//ブロックの描画数
 	int drawBlockX;
 	int drawBlockY;
@@ -92,11 +135,9 @@ protected:
 
 	//左サイドのサイズ
 	Vector2 leftSideSize_;
-#pragma endregion
 
-#pragma region 残り時間
+	//時間
 	int time_;
-#pragma endregion
 
 	//インスタンス
 	LevelManager* level_;

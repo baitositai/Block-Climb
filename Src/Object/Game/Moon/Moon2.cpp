@@ -19,20 +19,20 @@ void Moon2::Reset()
 
 	//赤い月の初期座標
 	int i = static_cast<int>(MOON_TYPE::CREATE);
-	firstPos_[i] = { center + 75, 250 };
+	firstPos_[i] = { center + RED_MOON_DEFAULT_POS_X, RED_MOON_DEFAULT_POS_Y };
 	pos_[i] = firstPos_[i];
 	isMoon_[i] = false;
 
 	//青い月の初期座標
 	i = static_cast<int>(MOON_TYPE::CHANGE);
-	firstPos_[i] = { static_cast<float>(Application::SCREEN_SIZE_X - (center + 75)), 250 };
+	firstPos_[i] = { BLUE_MOON_DEFAULT_POS_X - center, BLUE_MOON_DEFAULT_POS_Y };
 	pos_[i] = firstPos_[i];
 	isMoon_[i] = false;
 }
 
 void Moon2::Update()
 {
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < UPD_MOONS; i++)
 	{
 		int j = static_cast<int>(MOON_TYPE::CHANGE);
 		if (i == 1) { j = static_cast<int>(MOON_TYPE::CREATE); }
@@ -40,18 +40,14 @@ void Moon2::Update()
 		//座標設定
 		pos_[j] = firstPos_[j];
 
-		//シェイク用変数
-		float amplitude = 1.0f;// 揺らす周波数（Hz）0.3
-		float frequency = 5.0f;// 揺らす振幅（ピクセル）
-
 		//シェイク処理
-		pos_[j] = AsoUtility::SinShake(pos_[j].ToVector2(), amplitude, frequency).ToVector2F();
+		pos_[j] = AsoUtility::SinShake(pos_[j].ToVector2(), AMPLITUDE, FREQUENCY).ToVector2F();
 	}
 }
 
 void Moon2::Draw()
 {
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < UPD_MOONS; i++)
 	{
 		int j = static_cast<int>(MOON_TYPE::CHANGE);
 		if (i == 1) { j = static_cast<int>(MOON_TYPE::CREATE); }

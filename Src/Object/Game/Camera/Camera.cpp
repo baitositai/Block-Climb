@@ -12,6 +12,7 @@ Camera::Camera(void)
 	scrollMax_ = 0;
 	scroll_ = 0.0f;
 	scrollSpeed_ = 0.0f;
+	mode_ = MODE::FREE;
 }
 
 Camera::~Camera(void)
@@ -30,7 +31,7 @@ void Camera::Init(LevelManager* parent)
 	pos_ = level_->GetFirstCameraPos();
 
 	//スクロールスピードの設定
-	scrollSpeed_ = 2.0f;
+	scrollSpeed_ = SCROLL_SPEED;
 
 	//カメラモード
 	mode_ = MODE::SCROLL;
@@ -105,42 +106,6 @@ Vector2F Camera::GetPos(void)
 {
 	return pos_;
 }
-
-//void Camera::CameraMove()
-//{
-//	//ブロックが置いてある最上位置を得る
-//	maxY_ = level_->GetFieldBlockY(maxY_);
-//
-//	Vector2 blockPos = { 0,BlockBase::BLOCK_SIZE_Y * maxY_ };
-//
-//	//ブロックの位置とカメラの位置の差分を取る
-//	int diffX = blockPos.x - pos_.x;
-//	int diffY = blockPos.y - pos_.y;
-//
-//	//カメラの左枠処理
-//	if (diffX < WIDTH)
-//	{
-//		pos_.x -= WIDTH - diffX;
-//	}
-//
-//	//カメラの右枠処理
-//	if (diffX > Application::SCREEN_SIZE_X - WIDTH)
-//	{
-//		pos_.x -= Application::SCREEN_SIZE_X - WIDTH - diffX;
-//	}
-//
-//	//カメラの上枠処理
-//	if (diffY < HEIGHT)
-//	{
-//		pos_.y -= HEIGHT - diffY;
-//	}
-//
-//	//カメラの下枠処理
-//	if (diffY > Application::SCREEN_SIZE_Y - HEIGHT)
-//	{
-//		pos_.y -= Application::SCREEN_SIZE_Y - HEIGHT - diffY;
-//	}
-//}
 
 void Camera::CameraScrollMove()
 {
@@ -274,18 +239,6 @@ bool Camera::IsCameraRange(Vector2 pos, Vector2 size)
 	float scrollDownMax = level_->GetFirstCameraPos().y;
 
 	//ターゲットがカメラ内か確認
-	//---------------------------------------
-
-	////右枠
-	//int targetLeft = targetPos.x + targetSize.x / 2;
-	//int cameraRight = pos_.x;
-	//if (targetLeft < cameraRight) { return true; }
-	//
-	////左枠
-	//int targetRight = targetPos.x - targetSize.x / 2;
-	//int cameraLeft = pos_.x + WIDTH;
-	//if (targetRight > cameraLeft) { return true; }
-
 	//下枠
 	//ターゲットの上部の値を取得
 	int targetUp = targetPos.y - targetSize.y / 2;

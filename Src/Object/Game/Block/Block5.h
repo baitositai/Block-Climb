@@ -10,6 +10,9 @@ public:
 	//中央描画
 	static constexpr int CENTER_DRAW_X = 4;
 
+	//ミノの初期位置
+	static constexpr int MINO_DEFAULT_POS = -500;
+
 	//ブロックのセット状態
 	enum class STATE
 	{
@@ -18,14 +21,37 @@ public:
 		SET				//ブロックを置く場所
 	};
 
+	//コンストラクタ
+	Block5();
+
+	//デストラクタ
+	~Block5();
+
+	//初期化
 	void Init(LevelManager* parent) override;
+
+	//更新
 	void Update() override;
+	
+	//衝突時の更新
 	void HitUpdate(Vector2 pos) override;
+	
+	//リセット
 	void Reset(void) override;
+	
+	//ステージ生成
 	void StageCreate(void) override;
+
+	//ステージのcsvデータの読み込み
 	void LoadStageCsvData(void) override;
+
+	//配置エリアのcsvデータ読み込み
 	void LoadPositionCsvData(void) override;
+
+	//配置エリアの描画
 	void PutBlockZoneDraw() override;
+
+	//ブロックの配置
 	void BlockSet(int MinoX,int MinoY,int MinoType_) override;
 	
 private:

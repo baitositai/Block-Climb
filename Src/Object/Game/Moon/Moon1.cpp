@@ -31,12 +31,8 @@ void Moon1::Update()
 	//座標設定
 	pos_[i] = firstPos_[i];
 
-	//シェイク用変数
-	float amplitude = 1.0f;// 揺らす周波数（Hz）0.3
-	float frequency = 5.0f;// 揺らす振幅（ピクセル）
-
 	//シェイク処理
-	pos_[i] = AsoUtility::SinShake(pos_[i].ToVector2(), amplitude, frequency).ToVector2F();
+	pos_[i] = AsoUtility::SinShake(pos_[i].ToVector2(), AMPLITUDE, FREQUENCY).ToVector2F();
 }
 
 void Moon1::Draw()
@@ -50,6 +46,6 @@ void Moon1::Draw()
 		1.0f,	//拡大
 		0.0f,	//回転
 		images_[i],
-		true,	//分からん
+		true,	//透過
 		false);	//向き
 }

@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include <cmath>
 #include "../../../Application.h"
+#include "../../../Common/Fader.h"
 #include "../../../Utility/AsoUtility.h"
 #include "../../../Manager/SceneManager.h"
 #include "../../../Manager/SoundManager.h"
@@ -11,6 +12,15 @@
 Moon6::Moon6()
 {
 	level_ = nullptr;
+	stopCnt_ = 0.0f;
+	downCnt_ = 0;
+	respawn_ = 0;
+	alpha_ = 0;
+	preBlock_ = 0;
+	scroll_ = 0.0f;
+	scrollSpeed_ = 0.0f;
+	scrollMax_ = 0.0f;
+	speed_ = {};
 }
 
 Moon6::~Moon6()
@@ -21,7 +31,7 @@ void Moon6::Reset()
 {
 	Moon::Reset();
 
-#pragma region 黒い月の初期設定
+	//黒い月の初期設定
 	int i = static_cast<int>(MOON_TYPE::DEAD);
 	darkState_ = RandamDarkMove();
 	pos_[i] = ResetPos();
@@ -29,30 +39,27 @@ void Moon6::Reset()
 	
 	speed_ = { MOVE_SPEED,MOVE_SPEED };
 	drawSize_ = 1.0f;
-	alpha_ = 256;
+	alpha_ = Fader::FADE_MAX;
 	respawn_ = INTERVAL * SceneManager::DEFAULT_FPS;
-#pragma endregion
 
-#pragma region 黄色月の初期設定
+	//黄色月の初期設定
 	i = static_cast<int>(MOON_TYPE::GOAL);
-	firstPos_[i] = { Application::SCREEN_SIZE_X / 2, static_cast<float>( - BlockBase::BLOCK_SIZE_Y * (80 - level_->GetFieldSize().y))};
+	firstPos_[i] = { Application::SCREEN_SIZE_X / 2, static_cast<float>( - BlockBase::BLOCK_SIZE_Y * (GOAL_MOON_HEIGHT_OFFSET - level_->GetFieldSize().y))};
 	pos_[i] = firstPos_[i];
 	isMoon_[i] = false;
-	preBlock_ = 24;
+	preBlock_ = MOON_GOAL_PRE_BLOCK;
 	scroll_ = 0;
 	scrollMax_ = 0;
-	scrollSpeed_ = 2.0f;
-#pragma endregion
-
+	scrollSpeed_ = MOON_SCROLL_SPEED;
 }
 
 void Moon6::Update()
 {
 	int height = level_->GetBlockHeight();
 
-	if (height > 20) { DarkMoonUpdate(); }
+	if (height > DARK_MOON_TERM_HEIGHT) { DarkMoonUpdate(); }
 
-	if (height > 70) { GoalMoonUpdate(); }
+	if (height > GOAL_MOON_TERM_HEIGHT) { GoalMoonUpdate(); }
 }
 
 void Moon6::Draw()
@@ -64,7 +71,9 @@ void Moon6::Draw()
 
 Moon6::DARK_MOVE Moon6::RandamDarkMove()
 {
-	int i = rand() % 2;
+	constexpr int MOVE_TYES = 2;
+
+	int i = rand() % MOVE_TYES;
 	if (i == 0) {
 		return DARK_MOVE::DIAGONAL;
 	}
@@ -81,17 +90,19 @@ Vector2F Moon6::ResetPos()
 	switch (darkState_)
 	{
 	case DARK_MOVE::DIAGONAL:
-		posX = rand() % (Application::SCREEN_SIZE_X / 3);
+		posX = rand() % (Application::SCREEN_SIZE_X / DARK_SCREEN_DIVISOR); // 画面の左側ランダム
 		break;
 
 	case DARK_MOVE::DIAGONAL_RE:
-		posX = Application::SCREEN_SIZE_X + (rand() % SIZE_X);
+		posX = Application::SCREEN_SIZE_X + (rand() % SIZE_X); // 画面右外からランダム
 		break;
 
 	default:
 		break;
 	}
-	return pos = { posX,-SIZE_Y * 1.5 };
+
+	// 初期座標を返す（上方向にオフセット）
+	return pos = { posX, -SIZE_Y * DARK_POS_Y_OFFSET };
 }
 
 Vector2F Moon6::ResetSpeed()
@@ -115,7 +126,7 @@ void Moon6::DarkMoonUpdate()
 		if (stopCnt_ > respawn_)
 		{
 			stopCnt_ = 0;
-			downCnt_ = 2 + (rand() % 4);
+			downCnt_ = RANDAM_MOON_DOWN_MIN + (rand() % RANDAM_MOON_DOWN_MAX);
 			darkState_ = RandamDarkMove();
 			pos_[i] = ResetPos();
 			snd.PlayEffectSound(SoundManager::EFFECT_TYPE::GIMIC,static_cast<int>(SoundManager::GIMIC::DARK_MOON_RESPAWN));
@@ -175,12 +186,12 @@ void Moon6::DarkMoonUpdate()
 
 		//衝突時の大きくなる処理
 	case DARK_MOVE::FADE_BIG:
-		drawSize_ += 0.2f;
+		drawSize_ += EXPANSION_SPEED;
 		alpha_--;
-		if (drawSize_ >= 30.0f)
+		if (drawSize_ >= SIZE_MAX_RATE)
 		{
 			darkState_ = DARK_MOVE::STOP;
-			alpha_ = 256;
+			alpha_ = Fader::FADE_MAX;
 			drawSize_ = 1.0f;
 			isMoon_[i] = false;
 			pos_[i] = firstPos_[i];
@@ -200,12 +211,8 @@ void Moon6::GoalMoonUpdate(void)
 	//座標設定
 	pos_[i] = firstPos_[i];
 
-	//シェイク用変数
-	float amplitude = 1.0f;// 揺らす周波数（Hz）0.3
-	float frequency = 5.0f;// 揺らす振幅（ピクセル）
-
 	//シェイク処理
-	pos_[i] = AsoUtility::SinShake(pos_[i].ToVector2(), amplitude, frequency).ToVector2F();
+	pos_[i] = AsoUtility::SinShake(pos_[i].ToVector2(), AMPLITUDE, FREQUENCY).ToVector2F();
 
 }
 

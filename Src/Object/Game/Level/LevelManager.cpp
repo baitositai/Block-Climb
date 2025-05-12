@@ -100,8 +100,19 @@ void LevelManager::Draw(void)
 void LevelManager::Release(void)
 {
 	backGround_->Release();
+	delete backGround_;
 	player_->Release();
+	delete player_;
 	camera_->Release();
+	delete camera_;
+
+	delete block_;
+
+	delete moon_;
+
+	delete side_;
+
+	delete event_;
 }
 
 void LevelManager::AddInit()
@@ -152,7 +163,6 @@ bool LevelManager::IsHitBlocks(Vector2 Pos, Vector2 Size)
 	{
 		return true;
 	}
-	//------------------------------------------------------------
 	//ƒ~ƒm‚Æ‚Ì“–‚½‚è”»’è
 	if (IsHitMino(Pos , Size))
 	{

@@ -5,6 +5,17 @@
 
 Moon::Moon()
 {
+	for (int i = 0; i < static_cast<int>(MOON_TYPE::MAX); i++)
+	{
+		images_[i] = -1; 
+		isMoon_[i] = false;
+		pos_[i] = {};
+		firstPos_[i] = {};
+	}
+	drawSize_ = 0.0f;
+	darkState_ = DARK_MOVE::STOP;
+	size_ = {};
+	level_ = nullptr;
 }
 
 Moon::~Moon()

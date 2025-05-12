@@ -517,7 +517,6 @@ void BlockBase::MoveMino()
         isFall_ == false)
     {
         fallSpeed_ = FALL_SPEED_UP;
-        //snd.PlayEffectSound(SoundManager::EFFECT_TYPE::BLOCK, static_cast<int>(SoundManager::BLOCK::MOVE));
     }
     else if(isFall_ == false)
     {
@@ -748,12 +747,12 @@ Vector2 BlockBase::GetMinoBlockPos(Vector2 Pos,int x, int y)
    return pos;
 }
 
-Vector2 BlockBase::GetGroundBlockPos(Vector2 value)
-{
-    Vector2 pos = {GROUND_SIZE_X * value.x,
-                   GROUND_SIZE_Y * value.y };
-    return pos;
-}
+//Vector2 BlockBase::GetGroundBlockPos(Vector2 value)
+//{
+//    Vector2 pos = {GROUND_SIZE_X * value.x,
+//                   GROUND_SIZE_Y * value.y };
+//    return pos;
+//}
 
 int  BlockBase::GetFieldBestBlockY(int y)
 {

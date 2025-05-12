@@ -59,7 +59,7 @@ void PlayerBase::Init(LevelManager* scene)
 void PlayerBase::Reset()
 {
 	//プレイヤーのステータスの初期化
-	speed_ = 4.0f;
+	speed_ = PLAYER_SPEED;
 	pos_ = level_->GetFirstPlayerPos();
 	size_ = { SIZE_X,SIZE_Y };
 	dir_ = false;
@@ -74,12 +74,12 @@ void PlayerBase::Reset()
 	//アニメーションに関する初期化
 	animState_ = ANIM_STATE::IDLE;
 	cntAnim_ = 0;
-	animSpeed_ = 0.1f;
+	animSpeed_ = ANIM_SPEED;
 
 	//衝突判定用
 	hitPos_ = { 0, 0 };					//中心座標
-	hitBox_ = { SIZE_X / 2 - 8,			//範囲
-				SIZE_Y / 2 - 5 };		
+	hitBox_ = { SIZE_X / 2 - PLAYER_HIT_RANGE_OFFSET_X,			//範囲
+				SIZE_Y / 2 - PLAYER_HIT_RANGE_OFFSET_Y };		
 	hit_ = HIT::NONE;
 
 	//操作主情報の格納
@@ -90,12 +90,7 @@ void PlayerBase::Reset()
 void PlayerBase::Update(void)
 {
 	//アニメーションのカウント
-	cntAnim_ = cntAnim_ + 1;
-
-	for (int i = 0; i < 12; i++)
-	{
-		hits_[i] = false;
-	}
+	cntAnim_++;
 
 	//モーションの初期化を行う(ジャンプ中じゃないとき)
 	if (isJump_ == false)
@@ -167,51 +162,14 @@ void PlayerBase::Draw(void)
 		animNum = static_cast<int>(cntAnim_ * animSpeed_) % numAnim_;
 	}
 
-	/*DrawBox(pos_.x - SIZE_X / 2 + 1,
-		pos_.y - SIZE_Y / 2 + 1 - cameraPos.y,
-		pos_.x + SIZE_X / 2 - 1,			
-		pos_.y + SIZE_Y / 2 - 1 - cameraPos.y,
-		0xffffff,
-		true
-	);*/
-
 	//プレイヤーの描画
 	DrawRotaGraph(pos_.x,
 		pos_.y - cameraPos.y,
 		1.0f,	//拡大
 		rot_,	//回転
 		Images_[animState][animNum],
-		true,	//分からん
+		true,	//透過
 		dir_);	//向き
-
-	/*int hitColor[12];
-	for (int i = 0; i < 12; i++)
-	{
-		if (hits_[i])
-		{
-			hitColor[i] = 0xff0000;
-		}
-		else
-		{
-			hitColor[i] = 0x0000ff;
-		}
-	}
-
-	DrawCircle(GetColPos(COL_LR::C, COL_TD::T).x, GetColPos(COL_LR::C, COL_TD::T).y - cameraPos.y, 5.0f, hitColor[0], true);
-	DrawCircle(GetColPos(COL_LR::R, COL_TD::T).x, GetColPos(COL_LR::R, COL_TD::T).y - cameraPos.y, 5.0f, hitColor[1], true);
-	DrawCircle(GetColPos(COL_LR::L, COL_TD::T).x, GetColPos(COL_LR::L, COL_TD::T).y - cameraPos.y, 5.0f, hitColor[2], true);
-	
-	DrawCircle(GetColPos(COL_LR::C, COL_TD::D).x, GetColPos(COL_LR::C, COL_TD::D).y - cameraPos.y, 5.0f, hitColor[9], true);
-	DrawCircle(GetColPos(COL_LR::R, COL_TD::D).x, GetColPos(COL_LR::R, COL_TD::D).y - cameraPos.y, 5.0f, hitColor[10], true);
-	DrawCircle(GetColPos(COL_LR::L, COL_TD::D).x, GetColPos(COL_LR::L, COL_TD::D).y - cameraPos.y, 5.0f, hitColor[11], true);
-
-	DrawCircle(GetColPos(COL_LR::R, COL_TD::T).x, GetColPos(COL_LR::R, COL_TD::T).y - cameraPos.y, 2.5f, hitColor[3], true);
-	DrawCircle(GetColPos(COL_LR::R, COL_TD::C).x, GetColPos(COL_LR::R, COL_TD::C).y - cameraPos.y, 2.5f, hitColor[4], true);
-	DrawCircle(GetColPos(COL_LR::R, COL_TD::D).x, GetColPos(COL_LR::R, COL_TD::D).y - cameraPos.y, 2.5f, hitColor[5], true);
-
-	DrawCircle(GetColPos(COL_LR::L, COL_TD::T).x, GetColPos(COL_LR::L, COL_TD::T).y - cameraPos.y, 2.5f, hitColor[6], true);
-	DrawCircle(GetColPos(COL_LR::L, COL_TD::C).x, GetColPos(COL_LR::L, COL_TD::C).y - cameraPos.y, 2.5f, hitColor[7], true);
-	DrawCircle(GetColPos(COL_LR::L, COL_TD::D).x, GetColPos(COL_LR::L, COL_TD::D).y - cameraPos.y, 2.5f, hitColor[8], true);*/
 
 }
 
@@ -321,23 +279,6 @@ void PlayerBase::Move()
 		{
 			pos_.x = prePos_.x;
 		}
-		////右
-		//Vector2 rightPos = pos_.ToVector2();
-		//rightPos.x += BlockBase::BLOCK_SIZE_X;
-		//if (level_->IsHitField(rightPos) ||
-		//	level_->IsHitMino(rightPos))
-		//{
-		//	pos_.x = prePos_.x;
-		//}
-		//
-		////左
-		//Vector2 leftPos = pos_.ToVector2();
-		//leftPos.x -= BlockBase::BLOCK_SIZE_X;
-		//if (level_->IsHitField(leftPos) ||
-		//	level_->IsHitMino(leftPos))
-		//{
-		//	pos_.x = prePos_.x;
-		//}
 	}
 }
 
@@ -467,8 +408,7 @@ void PlayerBase::SetJumpPow(float pow)
 
 void PlayerBase::CheckDeath()
 {
-	if (/*(CollisionRight() && CollisionLeft()) ||*/
-		(CollisionHead() && CollisionFoot()))
+	if ((CollisionHead() && CollisionFoot()))
 	{
 		level_->SetStopCnt(LevelManager::HIT_STOP_CNT);
 		isDeath_ = true;
@@ -479,13 +419,13 @@ void PlayerBase::CheckDeath()
 //死亡時のアニメーション
 void PlayerBase::DeathAnimation()
 {
-	float animSpeed = 80.0f;						//アニメ速さ
-	float radPerFrame = 2 * DX_PI_F / animSpeed;	//SIN用の計算
-	float height = 120.0f;							//上昇高さ
-	const float rotSpeed = 0.3f;					//回転スピード
+	constexpr float DEATH_ANIM_SPEED = 80.0f;						//アニメ速さ
+	constexpr float RAD_PER_FREAM = 2 * DX_PI_F / DEATH_ANIM_SPEED;	//SIN用の計算
+	constexpr float HEIGHT = 120.0f;								//上昇高さ
+	constexpr float ROT_SPEED = 0.3f;								//回転スピード
 
 	deathCnt_++;
-	rot_ += rotSpeed;
+	rot_ += ROT_SPEED;
 
 	if (pos_.y >deathPos_.y)
 	{
@@ -497,7 +437,7 @@ void PlayerBase::DeathAnimation()
 		//飛び跳ねる処理
 		if (!fallSound_) { SoundManager::GetInstance().PlayEffectSound(SoundManager::EFFECT_TYPE::PLAYER, static_cast<int>(SoundManager::PLAYER::FALL)); }
 		fallSound_ = true;
-		pos_.y = -height * sin(radPerFrame * deathCnt_) + deathPos_.y;
+		pos_.y = -HEIGHT * sin(RAD_PER_FREAM * deathCnt_) + deathPos_.y;
 	}
 }
 //プレイヤーの座標を返す
@@ -533,7 +473,7 @@ Vector2 PlayerBase::GetColPos(COL_LR lr, COL_TD td)
 		ret.y -= hitBox_.y;
 		break;
 	case COL_TD::D:
-		ret.y += hitBox_.y + 4;
+		ret.y += hitBox_.y + PLAYER_COL_D_OFFSET;
 		break;
 	}
 	return ret;
@@ -560,10 +500,6 @@ bool PlayerBase::CollisionHead(void)
 	//頭部座標(右)
 	Vector2 HeadPosR = GetColPos(COL_LR::R, COL_TD::T);
 
-	if (level_->IsHitBlocks(HeadPosC, size_)) { hits_[0] = true; }
-	if (level_->IsHitBlocks(HeadPosR, size_)) { hits_[1] = true; }
-	if (level_->IsHitBlocks(HeadPosL, size_)) { hits_[2] = true; }
-
 	if (level_->IsHitBlocks(HeadPosC, size_) ||
 		level_->IsHitBlocks(HeadPosL, size_) ||
 		level_->IsHitBlocks(HeadPosR, size_))
@@ -583,10 +519,6 @@ bool PlayerBase::CollisionRight(void)
 
 	//座標(右下)
 	Vector2 RightPosD = GetColPos(COL_LR::R, COL_TD::D);
-
-	if (level_->IsHitBlocks(RightPosT, size_)) { hits_[3] = true; }
-	if (level_->IsHitBlocks(RightPosC, size_)) { hits_[4] = true; }
-	if (level_->IsHitBlocks(RightPosD, size_)) { hits_[5] = true; }
 
 	//マップチップの衝突判定（右側）
 	if (level_->IsHitBlocks(RightPosC, size_)
@@ -609,10 +541,6 @@ bool PlayerBase::CollisionLeft(void)
 	//座標(左下)
 	Vector2 LeftPosD = GetColPos(COL_LR::L, COL_TD::D);
 
-	if (level_->IsHitBlocks(LeftPosT, size_)) { hits_[6] = true; }
-	if (level_->IsHitBlocks(LeftPosC, size_)) { hits_[7] = true; }
-	if (level_->IsHitBlocks(LeftPosD, size_)) { hits_[8] = true; }
-
 	if (level_->IsHitBlocks(LeftPosC, size_)
 	|| level_->IsHitBlocks(LeftPosT, size_)
 	|| level_->IsHitBlocks(LeftPosD, size_))
@@ -632,10 +560,6 @@ int PlayerBase::CollisionFoot(void)
 
 	//足元座標(右)
 	Vector2 footPosR = GetColPos(COL_LR::R, COL_TD::D);
-
-	if (level_->IsHitBlocks(footPosC, size_)) { hits_[9] = true; }
-	if (level_->IsHitBlocks(footPosR, size_)) { hits_[10] = true; }
-	if (level_->IsHitBlocks(footPosL, size_)) { hits_[11] = true; }
 
 	if (level_->IsHitMino(footPosC, size_) ||
 		level_->IsHitMino(footPosL, size_) ||
@@ -675,4 +599,3 @@ void PlayerBase::SetParam(float speed_, float jumpPow)
 	maxSpeed_ = speed_;
 	maxJumpPow_ = jumpPow;
 }
-

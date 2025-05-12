@@ -1,6 +1,14 @@
 ﻿#include "Block3.h"
 #include "../Level/LevelManager.h"
 
+Block3::Block3()
+{
+}
+
+Block3::~Block3()
+{
+}
+
 void Block3::Reset(void)
 {
     //CSVデータの読み込み

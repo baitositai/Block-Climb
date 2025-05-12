@@ -104,7 +104,7 @@ void SoundManager::Init()
 		= LoadSoundMem((data + "ƒCƒxƒ“ƒg”­¶.mp3").c_str());
 
 	//ˆê•”Œø‰Ê‰¹‚Ì‰¹—Êİ’è
-	ChangeVolumeSoundMem(VOLUME_MAX * 70 / 100, se_[static_cast<int>(EFFECT_TYPE::GIMIC)][static_cast<int>(GIMIC::BLAST)]);
+	ChangeVolumeSoundMem(VOLUME_MAX * DEFAULT_VOLUME / 100, se_[static_cast<int>(EFFECT_TYPE::GIMIC)][static_cast<int>(GIMIC::BLAST)]);
 
 }
 
@@ -174,6 +174,14 @@ SoundManager::SoundManager(void)
 
 SoundManager::SoundManager(const SoundManager& manager)
 {
+	for (int i = 0; i < static_cast<int>(BGM::MAX); i++) { bgm_[i] = -1; }
+	for (int i = 0; i < static_cast<int>(EFFECT_TYPE::MAX); i++)
+	{
+		for (int j = 0; j < MAX_EFFECT_TYPE; j++)
+		{
+			se_[i][j] = -1;
+		}
+	}
 }
 
 SoundManager::~SoundManager(void)

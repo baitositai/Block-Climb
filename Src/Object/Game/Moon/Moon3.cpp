@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "../../../Application.h"
+#include "../../../Common/Fader.h"
 #include "../../../Utility/AsoUtility.h"
 #include "../../../Manager/SoundManager.h"
 #include "../Level/LevelManager.h"
@@ -19,7 +20,6 @@ void Moon3::Reset()
 {	
 	Moon::Reset();
 
-#pragma region çïÇ¢åéÇÃèâä˙ê›íË
 	int i = static_cast<int>(MOON_TYPE::DEAD);
 	float posX = level_->GetGameCenter().x + SIZE_X + GetRand(SIZE_X * level_->GetFieldSize().x);
 	firstPos_[i] = { posX,-SIZE_Y };
@@ -28,8 +28,7 @@ void Moon3::Reset()
 	darkState_ = DARK_MOVE::DOWN;
 	move_ = MOVE_SPEED;
 	drawSize_ = 1.0f;
-	alpha_ = 256;
-#pragma endregion
+	alpha_ = Fader::FADE_MAX;
 
 }
 
@@ -51,7 +50,7 @@ void Moon3::Update()
 				darkState_ = DARK_MOVE::DOWN;
 				float posX = level_->GetGameCenter().x + SIZE_X + GetRand(SIZE_X * level_->GetFieldSize().x);
 				pos_[i] = { posX, -SIZE_Y };
-				downCnt_ = 1 + rand() % 3;
+				downCnt_ = 1 + rand() % CREATE_RAND_MAX_SECOND;
 				snd.PlayEffectSound(SoundManager::EFFECT_TYPE::GIMIC, static_cast<int>(SoundManager::GIMIC::DARK_MOON_RESPAWN));
 			}
 
@@ -65,7 +64,7 @@ void Moon3::Update()
 				downCnt_--;
 				if (downCnt_ < 0) {
 					darkState_ = DARK_MOVE::STOP;
-					respawn_ = INTERVAL * (1 + rand() % 3);
+					respawn_ = INTERVAL * (1 + rand() % CREATE_RAND_MAX_SECOND);
 				}
 				else
 				{
@@ -78,12 +77,12 @@ void Moon3::Update()
 
 		//è’ìÀéûÇÃëÂÇ´Ç≠Ç»ÇÈèàóù
 		case DARK_MOVE::FADE_BIG:
-			drawSize_+= 0.2f;
+			drawSize_+= EXPANSION_SPEED;
 			alpha_--;
-			if (drawSize_ >= 30.0f)
+			if (drawSize_ >= SIZE_MAX_RATE)
 			{
 				darkState_ = DARK_MOVE::STOP;
-				alpha_ = 256;
+				alpha_ = Fader::FADE_MAX;
 				drawSize_ = 1.0f;
 				isMoon_[i] = false;
 				pos_[i] = firstPos_[i];

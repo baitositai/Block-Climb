@@ -90,6 +90,8 @@ public:
 	static constexpr int MAX_EFFECT_TYPE = static_cast<int>(GIMIC::MAX);
 	static constexpr int VOLUME_MAX = 255;
 
+	static constexpr int DEFAULT_VOLUME = 70;
+
 	//インスタンスの生成
 	//シングルトン化
 	static void CreateInstance(void);
@@ -119,7 +121,6 @@ private:
 	//効果音関係
 	int se_[static_cast<int>(EFFECT_TYPE::MAX)][MAX_EFFECT_TYPE];
 
-#pragma region シングルトン関係
 	// デフォルトコンストラクタをprivateにして、
 	// 外部から生成できない様にする
 	SoundManager(void);
@@ -128,7 +129,6 @@ private:
 
 	//シングルトン化
 	static SoundManager* instance_;
-#pragma endregion
 
 };
 

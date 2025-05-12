@@ -7,11 +7,11 @@
 
 void Side5::SetFont()
 {
-	nmlFontSize_ = 28;
-	dataFontSize_ = 32;
+	nmlFontSize_ = NORMAL_FONT_SIZE;
+	dataFontSize_ = DATA_FONT_SIZE;
 
-	normalFont_ = CreateFontToHandle("ベストテンDOT", nmlFontSize_, 3);
-	dataFont_ = CreateFontToHandle("ベストテンDOT", dataFontSize_, 3);
+	normalFont_ = CreateFontToHandle("ベストテンDOT", nmlFontSize_, FONT_THICK);
+	dataFont_ = CreateFontToHandle("ベストテンDOT", dataFontSize_, FONT_THICK);
 }
 
 void Side5::Reset()
@@ -20,15 +20,16 @@ void Side5::Reset()
 	SideBase::Reset();
 
 	//画像の種類の決定
-	sideBlockType_ = 4;
+	sideBlockType_ = SIDE_IMG_INDEX;
 
 	time_ = TIME_LIMIT;
-	minitu_ = 5;
+	minitu_ = TIME_LIMIT_MAX_MINUTES;
 	second_ = 0;
 }
 
 void Side5::Update()
 {
+
 	//制限時間の処理
 	time_ -= SceneManager::GetInstance().GetDeltaTime();
 	if (time_ <= 0)
@@ -37,71 +38,73 @@ void Side5::Update()
 		level_->SetGameOver(true);
 	}	
 	
-	minitu_ = (time_ / 3600) % 5;
-	second_ = time_ / 60 % 60;
+	minitu_ = (time_ / SECONDS_IN_AN_HOUR) % TIME_LIMIT_MAX_MINUTES;
+	second_ = time_ / SECONDS_IN_A_MINUTE % SECONDS_IN_A_MINUTE;
 }
 
 void Side5::Draw(void)
 {
 	SideBase::Draw();
 
-#pragma region 残りブロック数
-	//フチあり四角の描画
-	int border = 3;
-	
-	//間隔
-	int intervalX = 5;
-	int intervalY = 10;
+    //一つ目のボックスの描画
+    Vector2 boxPos1 = {
+        rightPos_.x - SIDE_DRAW_SIZE_X / 2 + INTERVAL_X * BOX1_MARGIN_X_COUNT,
+        BOX1_POS_Y
+    };
+    Vector2 boxSize1 = {
+        rightSideSize_.x - INTERVAL_X * BOX1_WIDTH_MARGIN_COUNT,
+        BOX1_HEIGHT
+    };
+    SideBase::WBorderRectangle(boxSize1, boxPos1, BOX_BORDER);
 
-	Vector2 boxPos1 = { rightPos_.x - SIDE_DRAW_SIZE_X / 2 + intervalX * 4,150 };
-	Vector2 boxSize1 = { rightSideSize_.x - intervalX * 8,110 };
-	SideBase::WBorderRectangle(boxSize1, boxPos1, border);
+    //テキスト描画（「クリアまで残り」）
+    DrawFormatStringToHandle(
+        boxPos1.x + INTERVAL_X,
+        boxPos1.y + INTERVAL_Y,
+        0xf00fff,
+        normalFont_,
+        "クリアまで残り"
+    );
 
-	//テキスト描画
-	DrawFormatStringToHandle(boxPos1.x + intervalX,
-		boxPos1.y + intervalY,
-		0xf00fff,
-		normalFont_,
-		"クリアまで残り");
+    //ブロック数の表示
+    DrawFormatStringToHandle(
+        boxPos1.x + INTERVAL_X * 2,
+        boxPos1.y + FONT_SIZE + INTERVAL_Y * 2,
+        0xffffff,
+        dataFont_,
+        "%d ブロック",
+        level_->GetBlockCnt()
+    );
 
-	//データの描画
-	DrawFormatStringToHandle(boxPos1.x + intervalX * 2,
-		boxPos1.y + FONT_SIZE + intervalY * 2,
-		0xffffff,
-		dataFont_,
-		"%d ブロック",
-		level_->GetBlockCnt());
-#pragma endregion
+    //二つ目のボックスの描画
+    boxPos1 = {
+        rightPos_.x - SIDE_DRAW_SIZE_X / 2 + INTERVAL_X * BOX1_MARGIN_X_COUNT,
+        BOX2_POS_Y
+    };
+    boxSize1 = {
+        rightSideSize_.x - INTERVAL_X * BOX1_WIDTH_MARGIN_COUNT,
+        BOX2_HEIGHT
+    };
+    SideBase::WBorderRectangle(boxSize1, boxPos1, BOX_BORDER);
 
-#pragma region	制限時間
-	//フチあり四角の描画
-	border = 3;
+    //テキスト描画（「制限時間」）
+    DrawFormatStringToHandle(
+        boxPos1.x + INTERVAL_X,
+        boxPos1.y + INTERVAL_Y,
+        0xf00fff,
+        normalFont_,
+        "制限時間"
+    );
 
-	//間隔
-	intervalX = 5;
-	intervalY = 10;
-
-	boxPos1 = { rightPos_.x - SIDE_DRAW_SIZE_X / 2 + intervalX * 4,300 };
-	boxSize1 = { rightSideSize_.x - intervalX * 8,110 };
-	SideBase::WBorderRectangle(boxSize1, boxPos1, border);
-
-	//テキスト描画
-	DrawFormatStringToHandle(boxPos1.x + intervalX,
-		boxPos1.y + intervalY,
-		0xf00fff,
-		normalFont_,
-		"制限時間");
-
-
-
-	//データの描画
-	DrawFormatStringToHandle(boxPos1.x + intervalX * 2,
-		boxPos1.y + FONT_SIZE + intervalY * 2,
-		0xffffff,
-		dataFont_,
-		"%d分 %d 秒",
-		minitu_,
-		second_);
-#pragma endregion
+    //制限時間の分と秒の表示
+    DrawFormatStringToHandle(
+        boxPos1.x + INTERVAL_X * 2,
+        boxPos1.y + FONT_SIZE + INTERVAL_Y * 2,
+        0xffffff,
+        dataFont_,
+        "%d分 %d 秒",
+        minitu_,
+        second_
+    );
 
 }

@@ -31,49 +31,53 @@ void SideBase::Init(LevelManager* parent)
 {
 	level_ = parent;
 
-	//画像読み込み
+	// 画像読み込み
 	int ret;
-	ret = LoadDivGraph(((Application::PATH_IMAGE + "Background/BackGround.png").c_str())
-		, SIDE_IMAGES
-		, SIDE_IMAGES_X
-		, SIDE_IMAGES_Y
-		, SIDE_IMAGE_SIZE_X
-		, SIDE_IMAGE_SIZE_Y
-		, &(imgSideBlock_[0]));
+	ret = LoadDivGraph(((Application::PATH_IMAGE + "Background/BackGround.png").c_str()),
+		SIDE_IMAGES,
+		SIDE_IMAGES_X,
+		SIDE_IMAGES_Y,
+		SIDE_IMAGE_SIZE_X,
+		SIDE_IMAGE_SIZE_Y,
+		&(imgSideBlock_[0]));
 
 	SetFont();
-
 	Reset();
 }
 
 void SideBase::Reset()
 {
-	//画像描画の設定
-	drawBlockX = 8;
-	drawBlockY = Application::SCREEN_SIZE_Y / SIDE_IMAGE_SIZE_Y + 2;
+	drawBlockX = DRAW_BLOCK_X;
+	drawBlockY = Application::SCREEN_SIZE_Y / SIDE_IMAGE_SIZE_Y + DRAW_BLOCK_Y_EXTRA;
 
-	//画像の種類の決定
-	sideBlockType_ = 0;
-	
+	sideBlockType_ = INIT_SIDE_BLOCK_TYPE;
+
 	center_ = level_->GetGameCenter();
 
-	//ゲーム画面のサイズ
-	gameSize_ = { level_->GetStageSize().x * BlockBase::BLOCK_SIZE_X ,
-				  level_->GetStageSize().y * BlockBase::BLOCK_SIZE_Y };
+	gameSize_ = {
+		level_->GetStageSize().x * BlockBase::BLOCK_SIZE_X,
+		level_->GetStageSize().y * BlockBase::BLOCK_SIZE_Y
+	};
 
-	//右始点
-	rightPos_ = { center_.x + gameSize_.x - BlockBase::BLOCK_SIZE_X -5,0 };
+	rightPos_ = {
+		center_.x + gameSize_.x - BlockBase::BLOCK_SIZE_X - RIGHT_POS_OFFSET,
+		0
+	};
 
-	//右サイドサイズ
-	rightSideSize_ = { Application::SCREEN_SIZE_X  + SIDE_DRAW_SIZE_X / 2 - rightPos_.x,
-					   Application::SCREEN_SIZE_Y};
+	rightSideSize_ = {
+		Application::SCREEN_SIZE_X + SIDE_DRAW_SIZE_X / 2 - rightPos_.x,
+		Application::SCREEN_SIZE_Y
+	};
 
-	//左始点
-	leftPos_ = { center_.x + BlockBase::BLOCK_SIZE_X ,0 };
+	leftPos_ = {
+		center_.x + BlockBase::BLOCK_SIZE_X,
+		0
+	};
 
-	//左サイドサイズ
-	leftSideSize_ = { leftPos_ .x,
-					  Application::SCREEN_SIZE_Y };
+	leftSideSize_ = {
+		leftPos_.x,
+		Application::SCREEN_SIZE_Y
+	};
 }
 
 void SideBase::Update(void)
@@ -82,30 +86,30 @@ void SideBase::Update(void)
 
 void SideBase::Draw(void)
 {
-	//右側の描画
 	for (int x = 0; x < drawBlockX; x++)
 	{
 		for (int y = 0; y < drawBlockY; y++)
 		{
-			DrawRotaGraph(rightPos_.x + x * SIDE_DRAW_SIZE_X,
+			DrawRotaGraph(
+				rightPos_.x + x * SIDE_DRAW_SIZE_X,
 				rightPos_.y + y * SIDE_DRAW_SIZE_Y,
-				1.0f,	//拡大
-				0.0f,	//回転
+				1.0f,
+				0.0f,
 				imgSideBlock_[sideBlockType_],
 				true,
 				false);
 		}
 	}
 
-	//左側の描画
 	for (int x = drawBlockX; x > 0; x--)
 	{
 		for (int y = 0; y < drawBlockY; y++)
 		{
-			DrawRotaGraph(leftPos_.x - x * SIDE_DRAW_SIZE_X,
+			DrawRotaGraph(
+				leftPos_.x - x * SIDE_DRAW_SIZE_X,
 				leftPos_.y + y * SIDE_DRAW_SIZE_Y,
-				1.0f,	//拡大
-				0.0f,	//回転
+				1.0f,
+				0.0f,
 				imgSideBlock_[sideBlockType_],
 				true,
 				false);
@@ -127,29 +131,25 @@ void SideBase::SetFont()
 	nmlFontSize_ = FONT_SIZE;
 	dataFontSize_ = FONT_DATA_SIZE;
 
-	normalFont_ = CreateFontToHandle("ベストテンDOT", nmlFontSize_, 3);
-	dataFont_ = CreateFontToHandle("ベストテンDOT", dataFontSize_, 3);
+	normalFont_ = CreateFontToHandle("ベストテンDOT", nmlFontSize_, FONT_THICK);
+	dataFont_ = CreateFontToHandle("ベストテンDOT", dataFontSize_, FONT_THICK);
 }
 
 void SideBase::NextMinoDraw()
 {
-	int border = 3;
-	Vector2 intervel = { 40, 20};
-	Vector2 boxPos = { intervel.x,150 };
-	Vector2 boxSize = { leftSideSize_.x - SIDE_DRAW_SIZE_X / 2 - intervel.x * 2, 220 };
-	WBorderRectangle(boxSize, boxPos, border);
+	WBorderRectangle({ NEXT_BLOCK_BOX_SIZE_X,NEXT_BLOCK_BOX_SIZE_Y }, { NEXT_BLOCK_BOX_POS_X,NEXT_BLOCK_BOX_POS_Y }, NEXT_BLOCK_BORDER);
 
-	//テキスト描画
-	DrawFormatStringToHandle(boxPos.x + intervel.x / 2,
-		boxPos.y + intervel.y / 2,
+	DrawFormatStringToHandle(
+		NEXT_BLOCK_BOX_POS_X + NEXT_BLOCK_INTERVAL_X / 2,
+		NEXT_BLOCK_BOX_POS_Y + NEXT_BLOCK_INTERVAL_Y / 2,
 		0xf00fff,
 		normalFont_,
 		"Next");
 
-	//次のブロックの描画
-	Vector2 blockPos =
-	{ boxPos.x + boxSize.x / 2,
-	  boxPos.y + nmlFontSize_ + intervel.y * 3};
+	Vector2 blockPos = {
+		NEXT_BLOCK_BOX_POS_X + NEXT_BLOCK_BOX_SIZE_X / 2,
+		NEXT_BLOCK_BOX_POS_Y + nmlFontSize_ + NEXT_BLOCK_INTERVAL_Y * NEXT_BLOCK_Y_OFFSET_RATE
+	};
 	level_->NextBlockDraw(blockPos);
 }
 
@@ -157,10 +157,9 @@ void SideBase::WBorderRectangle(Vector2 size, Vector2 pos, int border)
 {
 	for (int i = 1; i >= 0; i--)
 	{
-		int color = 0x000000;
-		if (i == 1) { color = 0xffffff; }
-
-		DrawBox(pos.x - border * i,
+		int color = (i == 1) ? 0xffffff : 0x000000;
+		DrawBox(
+			pos.x - border * i,
 			pos.y - border * i,
 			pos.x + size.x + border * i,
 			pos.y + size.y + border * i,

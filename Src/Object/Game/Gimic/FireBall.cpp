@@ -67,13 +67,13 @@ void FireBall::Draw()
     Vector2 cameraPos = level_->GetCameraPos().ToVector2();
 
     //角度
-    float angle = 90.0f / 180 * DX_PI_F;
+    constexpr float ANGLE = 90.0f / 180 * DX_PI_F;
 
     DrawRotaGraph(
         pos_.x,
         pos_.y - cameraPos.y,
         1.0f, 
-        angle,
+        ANGLE,
         imgFireBall_[static_cast<int>(state_)][idxAnim_],
         true,
         false);
@@ -132,7 +132,7 @@ void FireBall::Reset()
 
     //アニメーション初期化
     cntAnim_ = 0;
-    animSpeed_ = 0.3f;
+    animSpeed_ = ANIM_SPEED;
     idxAnim_ = 0;
 }
 

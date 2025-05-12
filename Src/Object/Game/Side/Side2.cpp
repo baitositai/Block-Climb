@@ -5,13 +5,23 @@
 #include "../Level/LevelManager.h"
 #include "Side2.h"
 
+Side2::Side2()
+{
+	minute_ = 0;
+	second_ = 0;
+}
+
+Side2::~Side2()
+{
+}
+
 void Side2::SetFont()
 {
-	nmlFontSize_ = 28;
-	dataFontSize_ = 32;
+	nmlFontSize_ = NORMAL_FONT_SIZE;
+	dataFontSize_ = DATA_FONT_SIZE;
 
-	normalFont_ = CreateFontToHandle("ベストテンDOT", nmlFontSize_, 3);
-	dataFont_ = CreateFontToHandle("ベストテンDOT", dataFontSize_, 3);
+	normalFont_ = CreateFontToHandle("ベストテンDOT", nmlFontSize_, FONT_THICK);
+	dataFont_ = CreateFontToHandle("ベストテンDOT", dataFontSize_, FONT_THICK);
 }
 
 void Side2::Reset()
@@ -20,16 +30,17 @@ void Side2::Reset()
 	SideBase::Reset();
 
 	//画像の種類の決定
-	sideBlockType_ = 1;
+	sideBlockType_ = SIDE_IMG_INDEX;
 
 	//制限時間関係
 	time_ = TIME_LIMIT;
-	minitu_ = 3;
+	minute_ = TIME_LIMIT_MAX_MINUTES;
 	second_ = 0;
 }
 
 void Side2::Update()
 {
+
 	//制限時間の処理
 	time_ -= SceneManager::GetInstance().GetDeltaTime();
 	if (time_ <= 0)
@@ -38,71 +49,64 @@ void Side2::Update()
 		level_->SetGameOver(true);
 	}	
 	
-	minitu_ = (time_ / 3600) % 3;
-	 second_ = time_ / 60 % 60;
+	minute_ = (time_ / SECONDS_IN_AN_HOUR) % TIME_LIMIT_MAX_MINUTES;
+	 second_ = time_ / SECONDS_IN_A_MINUTE % SECONDS_IN_A_MINUTE;
 }
 
 void Side2::Draw(void)
 {
 	SideBase::Draw();
 
-#pragma region 残りブロック数
-	//フチあり四角の描画
-	int border = 3;
-	
-	//間隔
-	int intervalX = 5;
-	int intervalY = 10;
+	//【残りブロック数のボックス】
+	Vector2 boxPos1 = {
+		rightPos_.x - SIDE_DRAW_SIZE_X / 2 + SIDE_BOX_POS_X_OFFSET,
+		BLOCK_COUNT_BOX_POS_Y
+	};
+	Vector2 boxSize1 = {
+		rightSideSize_.x - SIDE_BOX_WIDTH_MARGIN,
+		SIDE_BOX_HEIGHT
+	};
+	SideBase::WBorderRectangle(boxSize1, boxPos1, SIDE_BOX_BORDER);
 
-	Vector2 boxPos1 = { rightPos_.x - SIDE_DRAW_SIZE_X / 2 + intervalX * 4,150 };
-	Vector2 boxSize1 = { rightSideSize_.x - intervalX * 8,110 };
-	SideBase::WBorderRectangle(boxSize1, boxPos1, border);
-
-	//テキスト描画
-	DrawFormatStringToHandle(boxPos1.x + intervalX,
-		boxPos1.y + intervalY,
+	DrawFormatStringToHandle(
+		boxPos1.x + SIDE_BOX_INTERVAL_X,
+		boxPos1.y + SIDE_BOX_INTERVAL_Y,
 		0xf00fff,
 		normalFont_,
 		"クリアまで残り");
 
-	//データの描画
-	DrawFormatStringToHandle(boxPos1.x + intervalX * 2,
-		boxPos1.y + FONT_SIZE + intervalY * 2,
+	DrawFormatStringToHandle(
+		boxPos1.x + SIDE_BOX_INTERVAL_X * SIDE_DATA_OFFSET_X_RATE,
+		boxPos1.y + FONT_SIZE + SIDE_BOX_INTERVAL_Y * SIDE_DATA_OFFSET_Y_RATE,
 		0xffffff,
 		dataFont_,
 		"%d ブロック",
 		level_->GetBlockCnt());
-#pragma endregion
 
-#pragma region	制限時間
-	//フチあり四角の描画
-	border = 3;
+	//【制限時間のボックス】
+	boxPos1 = {
+		rightPos_.x - SIDE_DRAW_SIZE_X / 2 + SIDE_BOX_POS_X_OFFSET,
+		TIME_LIMIT_BOX_POS_Y
+	};
+	boxSize1 = {
+		rightSideSize_.x - SIDE_BOX_WIDTH_MARGIN,
+		SIDE_BOX_HEIGHT
+	};
+	SideBase::WBorderRectangle(boxSize1, boxPos1, SIDE_BOX_BORDER);
 
-	//間隔
-	intervalX = 5;
-	intervalY = 10;
-
-	boxPos1 = { rightPos_.x - SIDE_DRAW_SIZE_X / 2 + intervalX * 4,300 };
-	boxSize1 = { rightSideSize_.x - intervalX * 8,110 };
-	SideBase::WBorderRectangle(boxSize1, boxPos1, border);
-
-	//テキスト描画
-	DrawFormatStringToHandle(boxPos1.x + intervalX,
-		boxPos1.y + intervalY,
+	DrawFormatStringToHandle(
+		boxPos1.x + SIDE_BOX_INTERVAL_X,
+		boxPos1.y + SIDE_BOX_INTERVAL_Y,
 		0xf00fff,
 		normalFont_,
 		"制限時間");
 
-
-
-	//データの描画
-	DrawFormatStringToHandle(boxPos1.x + intervalX * 2,
-		boxPos1.y + FONT_SIZE + intervalY * 2,
+	DrawFormatStringToHandle(
+		boxPos1.x + SIDE_BOX_INTERVAL_X * SIDE_DATA_OFFSET_X_RATE,
+		boxPos1.y + FONT_SIZE + SIDE_BOX_INTERVAL_Y * SIDE_DATA_OFFSET_Y_RATE,
 		0xffffff,
 		dataFont_,
 		"%d分 %d 秒",
-		minitu_,
+		minute_,
 		second_);
-#pragma endregion
-
 }

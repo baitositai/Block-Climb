@@ -13,8 +13,19 @@ public:
 	//次の爆発を作るまでのクール時間
 	static constexpr float COOL_TIME = 10.0f;
 
+	//コンストラクタ
+	Block3();
+
+	//デストラクタ
+	~Block3();
+
+	//リセット
 	void Reset(void) override;
+
+	//ステージ生成
 	void StageCreate(void) override;
+
+	//ライン削除
 	void LineDelete(void) override;
 
 	// 有効な弾を取得する

@@ -29,15 +29,31 @@ public:
 	//衝突判定用半径
 	static constexpr float RADIUS = 16.0f;
 
+	//アニメーション速度
+	static constexpr float ANIM_SPEED = 0.3f;
+
+	//コンストラクタ
 	FireBall();
+
+	//デストラクタ
 	~FireBall();
 
+	//生成
 	void Create(LevelManager* parent, float speed);
+
+	//更新
 	void Update();
+
+	//描画
 	void Draw();
+
+	//解放
 	void Release();
 
+	//読み込み
 	void Load();
+
+	//リセット
 	void Reset();
 
 	//座標をセットする
@@ -77,6 +93,4 @@ private:
 
 	//インスタンス
 	LevelManager* level_;
-	
 };
-

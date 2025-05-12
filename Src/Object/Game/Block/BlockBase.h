@@ -44,7 +44,6 @@ public:
         SHIFT
     };
 
-#pragma region  地面関連の定数
     //ブロック画像の分ける数
     static constexpr int GROUND_IMG_NUM_X = 22;
     static constexpr int GROUND_IMG_NUM_Y = 11;
@@ -53,9 +52,7 @@ public:
     //地面チップの1サイズ
     static constexpr int GROUND_SIZE_X = 50;
     static constexpr int GROUND_SIZE_Y = 50;
-#pragma endregion
 
-#pragma region  ブロック関連の定数
     //ブロック画像の分ける数
     static constexpr int BLOCK_IMG_NUM_X = 8;
     static constexpr int BLOCK_IMG_NUM_Y = 1;
@@ -75,19 +72,32 @@ public:
 
     //固定する時間
     static constexpr float FIX_TIME = 0.65f;
-#pragma endregion  
 
     //種類数
     static constexpr int MINO_TYPES = static_cast<int>(MINO_TYPE::MAX);
 
+    //コンストラクタ
     BlockBase();
+
+    //デストラクタ
     ~BlockBase();
 
+    //初期化
     virtual void Init(LevelManager* parent);
+
+    //更新
     virtual void Update();
+
+    //衝突時の更新処理
     virtual void HitUpdate(Vector2 pos);
+
+    //日衝突時の更新処理
     virtual void NoHitUpdate(Vector2 pos);
+
+    //描画処理
     virtual void Draw();
+
+    //解放
     virtual void Release();
 
     //画像の読み込み
@@ -96,7 +106,6 @@ public:
     //変数の初期化
     virtual void Reset();
 
-#pragma region  ブロックに関する処理
     //フィールド生成
     virtual void StageCreate();
 
@@ -147,9 +156,6 @@ public:
 
     void SetFallSpeed(float speed);
 
-#pragma endregion
-
-#pragma region 地面に関する処理
     //CSVデータの読み込み
     virtual void LoadStageCsvData();
 
@@ -161,9 +167,7 @@ public:
 
     //チップナンバーを返す
     int GetChipNo(Vector2 mapPos);
-#pragma endregion
 
-#pragma region ブロックで形を作る処理等
     //形用のCSVデータを読み込む
     virtual void LoadPositionCsvData();
 
@@ -172,26 +176,54 @@ public:
 
     //セットしてほしいブロックゾーンの描画
     virtual void PutBlockZoneDraw();
-#pragma endregion
 
-#pragma region 値を返す
-    int GetMinoShapes(int type,int x,int y);
-    int GetFieldBestBlockY(int y);      //現在の縦に置かれてるブロックの数を返す
+    //指定したミノの値を返す
+    int GetMinoShapes(int type,int x,int y); 
+    
+    //現在の縦に置かれてるブロックの数を返す
+    int GetFieldBestBlockY(int y);     
+
+    //ミノの種類を返す
     int GetMinoType();
+
+    //現在の高さを返す
     int GetNowHeight();
+
+    //落下速度を返す
     float GetFallSpeed();
+
+    //指定したフィールドの値を返す
     int GetField(Vector2 value);
+
+    //配置するブロックの数を返す
     int GetBlockCount();
+
+    //削除するラインの数を返す
     int GetLineCount();
+
+    //フィールド内にブロックがあるか返す
     bool IsBlock();
+
+    //削除判定を返す
     bool IsDelete();
+
+    //ブロックのサイズを返す
     Vector2 GetSize();
+    
+    //指定したミノのブロックの位置を返す
     Vector2 GetMinoBlockPos(Vector2 Pos, int x, int y);
-    Vector2 GetGroundBlockPos(Vector2 value);
+
+    //地面チップのサイズ
+    //Vector2 GetGroundBlockPos(Vector2 value);
+
+    //ミノの位置を返す
     Vector2F GetMinoPos();
+
+    //爆発の配列を返す
     std::vector<Blast*> GetBlast(void);
+
+    //火の玉の配列を返す
     std::vector<FireBall*> GetFireBall(void);
-#pragma endregion
 
 protected:
 
@@ -297,7 +329,6 @@ protected:
     //インスタンス
     LevelManager* level_;
 
-
     //現在の高さ
     int nowHeight_;
 
@@ -325,17 +356,21 @@ protected:
     //ブロックサイズ
     Vector2 size_;
 
-#pragma region 地面関連
     //画像
     int imgGrounds_[GROUND_IMG_NUM];				
 
     //使用してるマップチップのサイズ
     Vector2 usedMapSize_;
-#pragma endregion
- int deleteLine_;
- bool isBlock_;
 
- bool isDelete_;
+    //削除するラインのY値
+    int deleteLine_;
+
+    //フィールド内のブロックの有無判定
+    bool isBlock_;
+
+    //削除判定
+    bool isDelete_;
+
 private:
 
     InputManager::JOYPAD_NO pad_;

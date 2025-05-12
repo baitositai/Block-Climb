@@ -1,9 +1,14 @@
 #include "../../../Manager/SceneManager.h"
 #include "Block4.h"
 
-//void Block4::Update(void)
-//{
-//}
+
+Block4::Block4()
+{
+}
+
+Block4::~Block4()
+{
+}
 
 void Block4::HitUpdate(Vector2 pos)
 {
@@ -17,8 +22,8 @@ void Block4::HitUpdate(Vector2 pos)
         //ミノの固定化
         MinoFixed(pos.x, pos.y, minoType_);
 
-        //ブロックのセット(ステージ2用)
-        BlockSet(pos.x, pos.y, minoType_);
+        ////ブロックのセット(ステージ2用)
+        //BlockSet(pos.x, pos.y, minoType_);
 
         //ライン消し(ステージ4用)
         LineDelete();
@@ -91,23 +96,34 @@ void Block4::CreateFireBall()
 
 int Block4::GenerationNumber()
 {
-    int cnt;
+    int cnt = FIREBALL_COUNTS[FIREBALL_RULE_SIZE]; // 最小値のデフォルトを入れておく
     int height = nowHeight_;
 
-    if (height >= 30) { cnt = 3; }
-    else if (height >= 15) { cnt = 2; }
-    else { cnt = 1; }
+    for (int i = 0; i < FIREBALL_RULE_SIZE; ++i)
+    {
+        if (height >= FIREBALL_HEIGHT_THRESHOLDS[i])
+        {
+            cnt = FIREBALL_COUNTS[i];
+            break;
+        }
+    }
 
     return cnt;
 }
 
 float Block4::FireBallSpeed()
 {
-    float speed;
+    float speed = FIREBALL_SPEEDS[FIREBALL_SPEED_RULE_SIZE]; // 最小のデフォルト速度
     int height = nowHeight_;
 
-    if (height >= 40) { speed = 5; }
-    else { speed = 3; }
+    for (int i = 0; i < FIREBALL_SPEED_RULE_SIZE; ++i)
+    {
+        if (height >= FIREBALL_SPEED_HEIGHT_THRESHOLDS[i])
+        {
+            speed = FIREBALL_SPEEDS[i];
+            break;
+        }
+    }
 
     return speed;
 }

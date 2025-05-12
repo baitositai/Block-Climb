@@ -26,14 +26,24 @@ public:
 	static constexpr int FONT_THICK = 6;
 
 	//テキスト非表示カウント
-	static constexpr int TEXT_OFF_CNT = 5 * 60;
+	static constexpr int TEXT_OFF_CNT = 5;
 
+	//コンストラクタ
 	RabbitText();
+
+	//デストラクタ
 	~RabbitText();
 
+	//初期化
 	void Init();
+
+	//リセット
 	virtual void Reset();
+
+	//更新
 	virtual void Update() = 0;
+
+	//解放
 	virtual void Release();
 	
 	//フォント設定

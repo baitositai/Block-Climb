@@ -70,10 +70,6 @@ public:
 		DOWN
 	};
 
-	//定数
-	//------------------------------------------------
-
-#pragma region  画像関連
 	//画像サイズ
 	static constexpr int SIZE_X = 50;						
 	static constexpr int SIZE_Y = 50;						
@@ -89,9 +85,7 @@ public:
 	//衝突時の画像サイズ
 	static constexpr int HIT_SIZE_X = 350;
 	static constexpr int HIT_SIZE_Y = 50;
-#pragma endregion
 
-#pragma region  アニメーション関連
 	//立ちのアニメーション数
 	static constexpr int IDLE_NUM_ANIM = 11;	
 
@@ -101,9 +95,12 @@ public:
 	//ダメージのアニメーション数
 	static constexpr int HIT_NUM_ANIM = 7;	
 
-#pragma endregion
+	//プレイヤーのスピード
+	static constexpr float PLAYER_SPEED = 4.0f;
 
-#pragma region 移動関連
+	//プレイヤーのアニメーション速度
+	static constexpr float ANIM_SPEED = 0.1f;
+
 	//加速(accelerator=アクセレレーター)
 	static constexpr float MOVE_ACC = 0.25f;	
 
@@ -112,9 +109,7 @@ public:
 
 	//移動速度の最大値
 	static constexpr float MAX_MOVE_SPEED = 3.5f;			
-#pragma endregion
 
-#pragma region ジャンプ関連
 	//最大ジャンプ力
 	static constexpr float MAX_JUMP_POW = 8.0;
 
@@ -124,18 +119,32 @@ public:
 	static constexpr float GRAVITY = 0.25;		
 
 	//ジャンプのフレーム量
-	static constexpr float INPUT_JUMP_FRAME = 4.0f;			
-#pragma endregion
+	static constexpr float INPUT_JUMP_FRAME = 4.0f;		
 
-	//メンバー関数													
-	//------------------------------------------------
-	PlayerBase(void);									//コンストラクタ
-	~PlayerBase(void);									//デストラクタ
+	//プレイヤーの衝突範囲を狭める
+	static constexpr int PLAYER_HIT_RANGE_OFFSET_X = 8;
+	static constexpr int PLAYER_HIT_RANGE_OFFSET_Y = 5;
 
-	virtual void Init(LevelManager* parent);			//初期化処理（最初の一回のみ実行)
-	virtual void Update(void);							//更新処理（毎度実行）
-	virtual void Draw(void);							//描画処理（毎度実行）
-	bool Release(void);									//解放処理 (終了時一回のみ実行)
+	//プレイヤーの足部オフセット
+	static constexpr int PLAYER_COL_D_OFFSET = 4;
+
+	//コンストラクタ
+	PlayerBase(void);			
+
+	//デストラクタ
+	~PlayerBase(void);						
+
+	//初期化処理（最初の一回のみ実行)
+	virtual void Init(LevelManager* parent);
+	
+	//更新処理（毎度実行）			
+	virtual void Update(void);	
+	
+	//描画処理（毎度実行）						
+	virtual void Draw(void);	
+	
+	//解放処理 (終了時一回のみ実行)						
+	bool Release(void);									
 
 	//変数の初期化
 	virtual void Reset();
@@ -170,17 +179,17 @@ public:
 #pragma endregion
 
 #pragma region 値を返す
-	Vector2F GetPos();
-	Vector2 GetColPos(COL_LR lr, COL_TD td);
-	Vector2 GetSize();
-	bool IsDeath();
+	Vector2F GetPos();							//座標を返す
+	Vector2 GetColPos(COL_LR lr, COL_TD td);	//プレイヤーの上下左右の座標を返す
+	Vector2 GetSize();							//プレイヤーサイズを返す
+	bool IsDeath();								//死亡判定
 #pragma endregion
 	
 #pragma region 外部からの設定
-	void SetPos(Vector2F value);
-	void SetState(ANIM_STATE state);
-	void SetIsDeath(bool value);
-	void SetParam(float speed_, float jumpPow);
+	void SetPos(Vector2F value);				//座標を設定
+	void SetState(ANIM_STATE state);			//状態の設定
+	void SetIsDeath(bool value);				//死亡判定の設定
+	void SetParam(float speed_, float jumpPow);	//パラメーターの設定
 #pragma endregion
 
 protected:
@@ -243,8 +252,6 @@ private:
 
 	//衝突判定の確認
 	HIT hit_;
-
-	bool hits_[12];
 
 #pragma endregion
 

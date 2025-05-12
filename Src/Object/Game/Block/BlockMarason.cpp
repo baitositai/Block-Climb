@@ -3,6 +3,14 @@
 #include "../../../Manager/SceneManager.h"
 #include "../../../Manager/SoundManager.h"
 
+BlockMarason::BlockMarason()
+{
+}
+
+BlockMarason::~BlockMarason()
+{
+}
+
 void BlockMarason::HitUpdate(Vector2 pos)
 {
     minoPos_.y = pos.y * BLOCK_SIZE_Y;
@@ -95,7 +103,7 @@ void BlockMarason::LineDelete(void)
         if (isLineFilled)
         {
             int cnt = -1;
-            int line = 1 + (rand() % 3);
+            int line = 1 + (rand() % LINE_DELETE_MAX);
             gameHeight_ += line;
             for (int j = startLine; j < startLine + line; j++)
             {

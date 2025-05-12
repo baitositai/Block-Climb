@@ -33,6 +33,10 @@ public:
 	//エフェクト種類
 	static constexpr int EFECT_TYPE = static_cast<int>(EFECT::NONE);
 
+	//エフェクトの拡大縮小
+	static constexpr float EFFECT_RATE_MAX = 1.5f;
+	static constexpr float EFFECT_RATE_MIN = 1.0f;
+
 
 	//各イベントの発生率
 	static constexpr int BLAST_FREQUENCY = 3;

@@ -15,6 +15,9 @@
 
 Level5::Level5(void)
 {
+	fireCnt_ = -1;
+	moon_ = nullptr;
+	fire_.clear();
 }
 
 Level5::~Level5(void)

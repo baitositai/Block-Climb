@@ -1,5 +1,13 @@
 #include "Block1.h"
 
+Block1::Block1()
+{
+}
+
+Block1::~Block1()
+{
+}
+
 void Block1::Reset(void)
 {
     groundCsvDate_ = (Application::PATH_CSV + "Stage1.csv").c_str();

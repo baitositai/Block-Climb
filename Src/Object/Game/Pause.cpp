@@ -91,7 +91,7 @@ void Pause::Draw()
 	{
 		for (int i = 0; i < static_cast<int>(CHANGE::MAX); i++)
 		{
-			int intevel = TEXT_INTERVAL + i;
+			int intevel = TEXT_INTERVAL * i;
 			int color = 0xffffff;
 			int fontType = font_;
 
@@ -120,7 +120,7 @@ void Pause::Release()
 	DeleteGraph(imgBoard_);
 	DeleteGraph(imgPause_);
 
-	delete game_;
+	//delete game_;
 }
 
 void Pause::SetText()

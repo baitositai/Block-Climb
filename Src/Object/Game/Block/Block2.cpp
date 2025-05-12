@@ -5,6 +5,14 @@
 #include "../Moon/Moon.h"
 
 
+Block2::Block2()
+{
+}
+
+Block2::~Block2()
+{
+}
+
 void Block2::Init(LevelManager* parent)
 {
     level_ = parent;
@@ -130,7 +138,7 @@ void Block2::Reset(void)
     //ŒŽ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
     moon_ = level_->GetMoonInstans();
 
-    minoPos_ = { -500, -500 };
+    minoPos_ = { MINO_DEFAULT_POS, MINO_DEFAULT_POS };
 
 }
 
@@ -263,8 +271,8 @@ void Block2::PutBlockZoneDraw()
                     i * BLOCK_SIZE_Y - cameraPos.y,
                     1.0f,	//Šg‘å
                     0.0f,	//‰ñ“]
-                    imgBlocks_[7],
-                    true,	//•ª‚©‚ç‚ñ
+                    imgBlocks_[MINO_TYPES],
+                    true,	//“§‰ß
                     false);	//Œü‚«
             }
         }

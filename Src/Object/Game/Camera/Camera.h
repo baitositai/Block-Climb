@@ -8,6 +8,8 @@ class Camera
 {
 
 public:
+
+	//カメラモード
 	enum class MODE
 	{
 		FIXED,
@@ -15,20 +17,30 @@ public:
 		FREE
 	};
 
-	//定数
+	//カメラ範囲
 	static constexpr int WIDTH = Application::SCREEN_SIZE_X;		//カメラの横幅
 	static constexpr int HEIGHT = 480;								//カメラの縦幅
 
+	//カメラスクロールスピード
+	static constexpr float SCROLL_SPEED = 2.0f;
+
+	//コンストラクタ
 	Camera(void);
+
+	//デストラクタ
 	~Camera(void);
 
+	//初期化
 	void Init(LevelManager* parent);
+
+	//更新
 	void Update(void);
+
+	//描画
 	void Draw(void);
+
+	//解放
 	void Release(void);
-	
-	//カメラの移動処理(不使用)
-	//void CameraMove();
 
 	//カメラのスクロール移動
 	virtual void CameraScrollMove();
@@ -59,7 +71,6 @@ protected:
 	//カメラのモード
 	MODE mode_;
 
-#pragma region  カメラスクロール関連
 	//スクロール最大量
 	int scrollMax_;
 
@@ -68,7 +79,6 @@ protected:
 
 	//スクロールスピード
 	float scrollSpeed_;
-#pragma endregion  
 
 	//カメラ座標
 	Vector2F pos_;
