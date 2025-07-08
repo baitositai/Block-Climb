@@ -1,0 +1,11 @@
+﻿  GameScene.cpp
+C:\Users\oboro\Downloads\Block-Climb-master\Block-Climb-master\Src\Object\Game\Level\Level6.h(29,52): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
+  
+C:\Users\oboro\Downloads\Block-Climb-master\Block-Climb-master\Src\Object\Game\Level\Level6.h(30,43): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
+  
+C:\Users\oboro\Downloads\Block-Climb-master\Block-Climb-master\Src\Object\Game\Level\Level6.h(31,45): warning C4244: '初期化中': 'float' から 'const int' への変換です。データが失われる可能性があります。
+  (ソース ファイル 'Src/Scene/GameScene.cpp' をコンパイルしています)
+  
+  BaseProject.vcxproj -> C:\Users\oboro\Downloads\Block-Climb-master\Block-Climb-master\x64\Debug\BaseProject.exe
