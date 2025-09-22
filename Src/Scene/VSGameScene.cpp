@@ -132,10 +132,19 @@ void VSGameScene::Draw(void)
 void VSGameScene::Release(void)
 {
 	select_->Release();
+	delete select_;
+	
 	level_->Release();
+	delete level_;
+	
 	over_->Release();
+	delete over_;
+	
 	clear_->Release();
+	delete clear_;
+	
 	start_->Release();
+	delete start_;
 }
 
 void VSGameScene::Reset()

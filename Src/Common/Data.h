@@ -1,7 +1,5 @@
 #pragma once
 
-
-
 class Data
 {
 public:
@@ -18,22 +16,28 @@ public:
 		MARASON,
 		VS
 	};
-	//定数
-	//-----------------------
+	
+	//カメラのサイズ
 	static constexpr int CAMERA_WIDTH = 150;
 	static constexpr int CAMERA_HEIGHT = 150;
+
+	//デフォルトデータ
+	static constexpr int DEFAULT_DATA = 2;
 
 	//メンバー関数
 	Data(void);
 	~Data(void);
+
+	//解放処理
+	void Destroy(void);
 
 	//インスタンスの生成
 	//シングルトン化
 	static void CreateInstance(void);
 	static Data& GetInstance(void);
 
-	void SetDeta(int pos);
-	int GetDeta(void);
+	void SetData(int pos);
+	int GetData(void);
 
 	//ステージデータを管理する
 	void ChangeLevelData(LEVEL Data);

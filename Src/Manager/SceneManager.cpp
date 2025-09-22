@@ -31,8 +31,6 @@ void SceneManager::Init(void)
 	fader_ = new Fader();
 	fader_->Init();
 
-	/*scene_ = new TitleScene();
-	scene_->Init();*/
 
 	isSceneChanging_ = false;
 
@@ -91,6 +89,13 @@ void SceneManager::Release(void)
 	delete scene_;
 
 	delete fader_;
+}
+
+void SceneManager::Destroy(void)
+{
+	Release();
+	instance_ = nullptr;
+	delete instance_;
 }
 
 void SceneManager::ChangeScene(SCENE_ID nextId)

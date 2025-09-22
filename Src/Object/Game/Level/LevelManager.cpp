@@ -105,14 +105,6 @@ void LevelManager::Release(void)
 	delete player_;
 	camera_->Release();
 	delete camera_;
-
-	delete block_;
-
-	delete moon_;
-
-	delete side_;
-
-	delete event_;
 }
 
 void LevelManager::AddInit()

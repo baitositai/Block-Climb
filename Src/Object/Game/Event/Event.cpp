@@ -3,6 +3,26 @@
 #include "../Level/LevelManager.h"
 #include "Event.h"
 
+Event::Event()
+{
+	eventState_ = EVENT::NONE;
+	efectAnimSpeed_ = 0.0f;
+	efectPos_ = { 0,0 };
+	efeState_ = EFECT::NONE;
+	for (int i = 0; i < EFECT_TYPE; i++)
+	{
+		efect_[i] = 0;
+	}
+	for (int i = 0; i < EVENT_TYPE; i++)
+	{
+		icon_[i] = 0;
+	}
+}
+
+Event::~Event()
+{
+}
+
 void Event::Init(LevelManager* parent)
 {
 	level_ = parent;
@@ -86,7 +106,7 @@ void Event::IconDraw(Vector2 pos)
 	}
 }
 
-void Event::EfectDraw()
+void Event::EffectDraw()
 {
 	if (efeState_ != EFECT::NONE)
 	{

@@ -339,7 +339,7 @@ protected:
 
     //落下時間のスピード
     float fallSpeed_;
-    float nolmalFallSpeed_;
+    float normalFallSpeed_;
 
     //落下の許可
     bool isFall_;

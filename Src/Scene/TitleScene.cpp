@@ -149,8 +149,10 @@ void TitleScene::Release(void)
 	DeleteFontToHandle(font_);
 	DeleteGraph(imgLogo_);
 
-	for (BlockBase* block : blocks_) {
-		if (block) {
+	for (BlockBase* block : blocks_)
+	{
+		if (block) 
+		{
 			block->Release();
 			delete block;
 		}
@@ -166,7 +168,8 @@ void TitleScene::Release(void)
 	delete back_;
 	for (auto* player : player_)
 	{
-		if (player){
+		if (player)
+		{
 			player->Release();
 			delete player;
 		}

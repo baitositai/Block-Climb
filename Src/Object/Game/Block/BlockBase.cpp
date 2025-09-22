@@ -25,6 +25,18 @@ BlockBase::BlockBase()
     resetCnt_ = 0;
     stageHeight_ = 0;
     stageWidth_ = 0;
+	nowHeight_ = 0;
+	setBlockCnt_ = 0;
+	cntLine_ = 0;
+	isBlock_ = false;
+	isFall_ = false;
+	isStick_ = false;
+	nextMino_ = 0;
+	pad_ = InputManager::JOYPAD_NO::PAD1;
+    size_ = { };
+	normalFallSpeed_ = 0.0f;
+	deleteLine_ = 0;
+	isDelete_ = false;
 
     for (int i = 0; i < BLOCK_IMG_NUM; i++)
     {
@@ -49,7 +61,7 @@ void BlockBase::Init(LevelManager* parent)
     pad_ = InputManager::JOYPAD_NO::PAD1;
 
     //落下に関する初期化
-    nolmalFallSpeed_ = FALL_SPEED;
+    normalFallSpeed_ = FALL_SPEED;
     fallSpeed_ = FALL_SPEED;
 
     isFall_ = false;
@@ -234,6 +246,10 @@ void BlockBase::Draw()
 
 void BlockBase::Release()
 {
+    for (int i = 0; i < GROUND_IMG_NUM; i++)
+    {
+        DeleteGraph(imgGrounds_[i]);
+    }
     for (int i = 0; i < BLOCK_IMG_NUM; i++)
     {
         DeleteGraph(imgBlocks_[i]);
@@ -477,7 +493,7 @@ void BlockBase::AllDeleteLine()
 void BlockBase::SetFallSpeed(float speed)
 {
     fallSpeed_ = speed;
-    nolmalFallSpeed_ = speed;
+    normalFallSpeed_ = speed;
 }
 
 //ミノのリセット
@@ -520,7 +536,7 @@ void BlockBase::MoveMino()
     }
     else if(isFall_ == false)
     {
-        fallSpeed_ = nolmalFallSpeed_;
+        fallSpeed_ = normalFallSpeed_;
         
     }
     else
@@ -746,13 +762,6 @@ Vector2 BlockBase::GetMinoBlockPos(Vector2 Pos,int x, int y)
                     Pos.y + BLOCK_SIZE_Y * y };
    return pos;
 }
-
-//Vector2 BlockBase::GetGroundBlockPos(Vector2 value)
-//{
-//    Vector2 pos = {GROUND_SIZE_X * value.x,
-//                   GROUND_SIZE_Y * value.y };
-//    return pos;
-//}
 
 int  BlockBase::GetFieldBestBlockY(int y)
 {

@@ -12,10 +12,10 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	/// <param name="image"></param>画像
-	/// <param name="imageSize"></param>画像サイズ
-	/// <param name="drawNum"></param>描画数
-	/// <param name="scrollSpeed"></param>スクロール速度
+	/// <param name="image">画像</param>
+	/// <param name="imageSize">画像サイズ</param>
+	/// <param name="drawNum">描画数</param>
+	/// <param name="scrollSpeed">スクロール速度</param>
 	void Init(int image, Vector2 imageSize, int drawNum, float scrollSpeed);
 	void Update();	//更新
 	void Draw();	//描画

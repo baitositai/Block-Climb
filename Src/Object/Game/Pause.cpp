@@ -119,8 +119,6 @@ void Pause::Release()
 	DeleteGraph(imgNewRecode_);
 	DeleteGraph(imgBoard_);
 	DeleteGraph(imgPause_);
-
-	//delete game_;
 }
 
 void Pause::SetText()

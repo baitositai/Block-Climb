@@ -92,8 +92,14 @@ void Level5::Release(void)
 		fire->Release();
 	}
 	side_->Release();
+	delete side_;
+
 	block_->Release();
+	delete block_;
+
 	moon_->Release();
+	delete moon_;
+	
 	LevelManager::Release();
 }
 

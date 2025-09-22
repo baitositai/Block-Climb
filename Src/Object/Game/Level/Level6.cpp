@@ -16,6 +16,12 @@
 
 Level6::Level6(void)
 {
+	eventLine_ = 0;
+	fireCnt_ = 0;
+	fireCreateCnt_ = 0;
+	isBlast_ = false;	
+	isSpeedDown_ = false;
+	paramCnt_ = 0;
 }
 
 Level6::~Level6(void)
@@ -140,7 +146,7 @@ void Level6::Draw(void)
 	//ƒvƒŒƒCƒ„[•`‰æ
 	player_->Draw();
 
-	event_->EfectDraw();
+	event_->EffectDraw();
 
 	//ƒJƒƒ‰‚Ì•`‰æ
 	camera_->Draw();
@@ -173,12 +179,25 @@ void Level6::Release(void)
 		fire->Release();
 	}
 	event_->Release();
+	delete event_;
+
 	side_->Release();
+	delete side_;
+	
 	block_->Release();
+	delete block_;
+	
 	moon_->Release();
+	delete moon_;
+	
 	backGround_->Release();
+	delete backGround_;
+	
 	player_->Release();
+	delete player_;
+	
 	camera_->Release();
+	delete camera_;
 }
 
 void Level6::SetParam()

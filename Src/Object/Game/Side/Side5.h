@@ -61,7 +61,7 @@ public:
 	void Draw(void) override;
 
 private:
-	int minitu_;
+	int minute_;
 	int second_;
 
 };

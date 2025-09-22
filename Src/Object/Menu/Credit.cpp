@@ -39,7 +39,8 @@ void Credit::Update()
 
 	//ÉÅÉjÉÖÅ[Ç÷ñﬂÇÈ
 	if (ins.IsTrgDown(KEY_INPUT_RETURN) ||
-		ins.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::DOWN))
+		ins.IsPadBtnTrgDown(InputManager::JOYPAD_NO::PAD1, InputManager::JOYPAD_BTN::DOWN) ||
+		GetMovieStateToGraph(movie_) == 0)
 	{
 		PauseMovieToGraph(movie_);
 		SeekMovieToGraph(movie_, 0);

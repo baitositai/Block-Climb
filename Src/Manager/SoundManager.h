@@ -101,6 +101,9 @@ public:
 	void Update();
 	void Release();
 
+	//‰ğ•úˆ—
+	void Destroy(void);
+
 	// BGM‚ÌÄ¶
 	void PlayBgmSound(BGM bgm, int volume, bool topPosFlag);
 

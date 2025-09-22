@@ -162,8 +162,6 @@ void Text::MenuText()
 		}
 		//選択テキストの表示
 		DrawStringToHandle(pos.x, pos.y, menuText_[i].c_str(), color, fontType);
-
-		//-----------------------------------------------------------------------------
 		
 		pos_ = { EXP_FIRST_POS_X,
 				 EXP_FIRST_POS_Y};

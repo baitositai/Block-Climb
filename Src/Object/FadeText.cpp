@@ -23,7 +23,7 @@ void FadeText::SetText(int font ,int color ,int size ,Vector2 pos ,std::string t
 	color_ = color;
 	pos_ = pos;
 	size_ = size;
-	alpha_ = 256;
+	alpha_ = Fader::FADE_MAX;
 	fade_ = 1;
 }
 

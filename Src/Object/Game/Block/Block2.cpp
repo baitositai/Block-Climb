@@ -7,6 +7,7 @@
 
 Block2::Block2()
 {
+    moon_ = nullptr;
 }
 
 Block2::~Block2()

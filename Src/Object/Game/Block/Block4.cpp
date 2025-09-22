@@ -22,9 +22,6 @@ void Block4::HitUpdate(Vector2 pos)
         //ミノの固定化
         MinoFixed(pos.x, pos.y, minoType_);
 
-        ////ブロックのセット(ステージ2用)
-        //BlockSet(pos.x, pos.y, minoType_);
-
         //ライン消し(ステージ4用)
         LineDelete();
 
@@ -96,7 +93,7 @@ void Block4::CreateFireBall()
 
 int Block4::GenerationNumber()
 {
-    int cnt = FIREBALL_COUNTS[FIREBALL_RULE_SIZE]; // 最小値のデフォルトを入れておく
+    int cnt = FIREBALL_COUNTS[FIREBALL_RULE_SIZE - 1]; // 最小値のデフォルトを入れておく
     int height = nowHeight_;
 
     for (int i = 0; i < FIREBALL_RULE_SIZE; ++i)
@@ -113,7 +110,7 @@ int Block4::GenerationNumber()
 
 float Block4::FireBallSpeed()
 {
-    float speed = FIREBALL_SPEEDS[FIREBALL_SPEED_RULE_SIZE]; // 最小のデフォルト速度
+    float speed = FIREBALL_SPEEDS[FIREBALL_SPEED_RULE_SIZE- 1]; // 最小のデフォルト速度
     int height = nowHeight_;
 
     for (int i = 0; i < FIREBALL_SPEED_RULE_SIZE; ++i)

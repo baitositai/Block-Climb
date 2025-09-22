@@ -75,7 +75,7 @@ public:
 	/// <summary>
 	/// テキスト表示確認
 	/// </summary>
-	/// <param name="value"></param>表示するか否か
+	/// <param name="value">表示するか否か</param>
 	void SetIsText(bool value);
 
 	//ウサギの描画

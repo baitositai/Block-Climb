@@ -17,6 +17,9 @@ public:
 	//更新ライン
 	static constexpr int UPDATE_LINE = 10;
 
+	//削除ライン数
+	static constexpr int DELETE_LINE = 3;
+
 	//コンストラクタ
 	Block6();
 

@@ -69,7 +69,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	/// <param name="parent"></param>親インスタンス
+	/// <param name="parent">親インスタンス</param>
 	void Init(MenuScene* parent);
 
 	//変数の初期化
@@ -81,16 +81,16 @@ public:
 	/// <summary>
 	/// テキストのスクロール処理
 	/// </summary>
-	/// <param name="pos"></param>位置
-	/// <param name="length"></param>長さ
-	/// <returns></returns>
+	/// <param name="pos">位置</param>
+	/// <param name="length">長さ</param>
+	/// <returns>スクロール位置</returns>
 	Vector2 TextScroll(const Vector2 pos ,const int length);
 
 	/// <summary>
 	/// 指定したテキストサイズを返す
 	/// </summary>
-	/// <param name="index"></param>テキスト番号
-	/// <returns></returns>
+	/// <param name="index">テキスト番号</param>
+	/// <returns>テキストのサイズ</returns>
 	int GetMenuTextSize(const int index);
 
 	//新記録の描画

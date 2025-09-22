@@ -15,6 +15,8 @@
 
 Level3::Level3(void)
 {
+	isBlast_ = false;
+	moon_ = nullptr;
 }
 
 Level3::~Level3(void)
@@ -106,6 +108,12 @@ void Level3::Update(void)
 			}
 		}	
 	}
+
+	//クリア条件ラインを消したらクリア判定にする
+	if (block_->GetLineCount() >= Block3::CREAL_LINE)
+	{
+		SetGameClear(true);
+	}
 }
 
 void Level3::Draw(void)
@@ -143,8 +151,14 @@ void Level3::Release(void)
 		blast->Release();
 	}
 	moon_->Release();
+	delete moon_;
+	
 	side_->Release();
+	delete side_;
+	
 	block_->Release();
+	delete block_;
+	
 	LevelManager::Release();
 	
 }

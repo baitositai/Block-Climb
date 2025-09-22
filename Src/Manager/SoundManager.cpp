@@ -128,6 +128,13 @@ void SoundManager::Release()
 	}
 }
 
+void SoundManager::Destroy(void)
+{
+	Release();
+	instance_ = nullptr;
+	delete instance_;
+}
+
 void SoundManager::PlayBgmSound(BGM bgm, int volume, bool topPosFlag)
 {
 	//âπó ê›íË

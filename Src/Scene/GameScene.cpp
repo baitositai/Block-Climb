@@ -318,8 +318,9 @@ void GameScene::Fade(void)
 
 SoundManager::BGM GameScene::GetRandGameBgm()
 {
+
 	SoundManager::BGM type = SoundManager::BGM::MAX;
-	int randNum = rand() % BGMS;
+	int randNum = static_cast<int>(SoundManager::BGM::GAME1) + rand() % RAND_BGMS - 1;
 
 	switch (static_cast<SoundManager::BGM>(randNum))
 	{

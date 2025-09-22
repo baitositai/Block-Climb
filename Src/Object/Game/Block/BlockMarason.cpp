@@ -5,6 +5,10 @@
 
 BlockMarason::BlockMarason()
 {
+    count_ = 0;
+    fieldNeo_.clear();
+    roleNeo_.clear();
+    decLineHeights_.clear();
 }
 
 BlockMarason::~BlockMarason()

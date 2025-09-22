@@ -5,6 +5,10 @@
 
 Block6::Block6()
 {
+    count_ = 0;
+    fieldNeo_.clear();
+    roleNeo_.clear();
+    decLineHeights_.clear();
 }
 
 Block6::~Block6()
@@ -102,7 +106,7 @@ void Block6::LineDelete(void)
         if (isLineFilled)
         {
             int cnt = -1;
-            int line = 3;
+            int line = DELETE_LINE;
             gameHeight_ += line;
             for (int j = startLine; j < startLine + line; j++)
             {

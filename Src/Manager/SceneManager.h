@@ -30,11 +30,11 @@ public:
 	void Draw(void);
 	void Release(void);
 
+	//解放処理
+	void Destroy(void);
+
 	// 状態遷移
 	void ChangeScene(SCENE_ID nextId);
-
-	// シーンIDの取得
-	SCENE_ID GetSceneID(void);
 
 	// デルタタイムの取得
 	float GetDeltaTime(void) const;

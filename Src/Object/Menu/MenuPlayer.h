@@ -41,7 +41,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	/// <param name="parent"></param>親インスタンス
+	/// <param name="parent">親インスタンス</param>
 	void Init(MenuScene* parent);
 
 	//変数の初期化
@@ -56,7 +56,7 @@ public:
 	/// <summary>
 	/// 状態変更
 	/// </summary>
-	/// <param name="state"></param>次の状態
+	/// <param name="state">次の状態</param>
 	void ChangeState(const MOVE_STATE state);
 
 private:
@@ -65,7 +65,7 @@ private:
 	MOVE_STATE state_;
 
 	//定位置
-	Vector2F fiexdPos_;
+	Vector2F fixedPos_;
 
 	//インスタンス
 	MenuScene* menu_;	

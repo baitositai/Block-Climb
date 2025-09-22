@@ -5,10 +5,19 @@ class Application
 {
 
 public:
+	// 色の深度
+	static constexpr int COLOR_BIT_DEPTH = 32;
 
 	// スクリーンサイズ
 	static constexpr int SCREEN_SIZE_X = 1280;
 	static constexpr int SCREEN_SIZE_Y = 720;
+
+	//フォント種類
+	static constexpr int FONT_TYPES = 2;
+
+	//フォントネーム
+	static const std::string FONT_DOT;
+	static const std::string FONT_BOKUTATI;
 
 	// データパス関連
 	//-------------------------------------------
@@ -51,6 +60,8 @@ private:
 
 	// 解放失敗
 	bool isReleaseFail_;
+
+	std::string fontPath_[FONT_TYPES];
 
 	// デフォルトコンストラクタをprivateにして、
 	// 外部から生成できない様にする

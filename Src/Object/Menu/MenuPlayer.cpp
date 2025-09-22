@@ -26,8 +26,8 @@ void MenuPlayer::Init(MenuScene* parent)
 
 void MenuPlayer::Reset()
 {
-	fiexdPos_ = { FIXED_POS_X,FIXED_POS_Y};
-	pos_ = fiexdPos_;
+	fixedPos_ = { FIXED_POS_X,FIXED_POS_Y};
+	pos_ = fixedPos_;
 	animState_ = ANIM_STATE::IDLE;
 	cntAnim_ = 0;
 	animSpeed_ = ANIM_SPEED;
@@ -88,7 +88,7 @@ void MenuPlayer::Admission()
 	pos_.x -= SPEED;
 
 	//ˆÚ“®‚ÌI‚í‚è
-	if (fiexdPos_.x >= pos_.x)
+	if (fixedPos_.x >= pos_.x)
 	{
 		state_ = MOVE_STATE::NONE;
 		animState_ = ANIM_STATE::IDLE;

@@ -55,19 +55,19 @@ public:
 	/// <summary>
 	/// ウサギの描画
 	/// </summary>
-	/// <param name="pos"></param>位置
+	/// <param name="pos">位置</param>
 	void RabbitDraw(Vector2 pos);
 
 	/// <summary>
 	/// 吹き出しの描画
 	/// </summary>
-	/// <param name="pos"></param>位置
+	/// <param name="pos">位置</param>
 	void SpeechDraw(Vector2 pos);
 	
 	/// <summary>
 	/// テキストの描画
 	/// </summary>
-	/// <param name="pos"></param>描画位置を受け取る
+	/// <param name="pos">描画位置を受け取る</param>
 	virtual void TextDraw(Vector2 pos) = 0;
 
 protected:

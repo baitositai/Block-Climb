@@ -65,7 +65,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	/// <param name="parent"></param>親インスタンス
+	/// <param name="parent">親インスタンス</param>
 	void Init(GameScene* parent);
 
 	//変数の初期化
@@ -86,7 +86,7 @@ public:
 	/// <summary>
 	/// 新記録UI描画の許可
 	/// </summary>
-	/// <param name="value"></param>許可
+	/// <param name="value">許可</param>
 	void SetIsNewRecode(const bool value);
 
 	//新記録UI描画許可の確認

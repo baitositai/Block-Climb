@@ -66,13 +66,13 @@ public:
 	/// <summary>
 	/// ゲームシーンへ遷移
 	/// </summary>
-	/// <param name="level"></param>ゲームのレベル
+	/// <param name="level">ゲームのレベル</param>
 	void ChangeGameScene(const Data::LEVEL level);	
 	
 	/// <summary>
 	/// 状態変更
 	/// </summary>
-	/// <param name="state"></param>状態
+	/// <param name="state">状態</param>
 	void SetState(const STATE state);	
 	
 	//テキストの初期化
@@ -81,13 +81,13 @@ public:
 	/// <summary>
 	/// ポイント座標の設定
 	/// </summary>
-	/// <param name="pos"></param>座標
+	/// <param name="pos">座標</param>
 	void SetPointPos(const Vector2 pos);
 
 	/// <summary>
 	/// プレイヤーの状態を設定
 	/// </summary>
-	/// <param name="state"></param>プレイヤーの移動状態
+	/// <param name="state">プレイヤーの移動状態</param>
 	void SetPlayerState(const MenuPlayer::MOVE_STATE state);
 
 	//ステートを返す

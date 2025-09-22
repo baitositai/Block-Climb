@@ -26,26 +26,26 @@ void InputManager::Init(void)
 
 	// ゲームで使用したいキーを、
 	// 事前にここで登録しておいてください
-	InputManager::GetInstance().Add(KEY_INPUT_SPACE);
-	InputManager::GetInstance().Add(KEY_INPUT_RETURN);
+	Add(KEY_INPUT_SPACE);
+	Add(KEY_INPUT_RETURN);
 
-	InputManager::GetInstance().Add(KEY_INPUT_RIGHT);
-	InputManager::GetInstance().Add(KEY_INPUT_LEFT);
-	InputManager::GetInstance().Add(KEY_INPUT_DOWN);
-	InputManager::GetInstance().Add(KEY_INPUT_UP);
+	Add(KEY_INPUT_RIGHT);
+	Add(KEY_INPUT_LEFT);
+	Add(KEY_INPUT_DOWN);
+	Add(KEY_INPUT_UP);
 
-	InputManager::GetInstance().Add(KEY_INPUT_N);
-	InputManager::GetInstance().Add(KEY_INPUT_Z);
+	Add(KEY_INPUT_N);
+	Add(KEY_INPUT_Z);
 
-	InputManager::GetInstance().Add(KEY_INPUT_S);
-	InputManager::GetInstance().Add(KEY_INPUT_D);
-	InputManager::GetInstance().Add(KEY_INPUT_A);
-	InputManager::GetInstance().Add(KEY_INPUT_W);
+	Add(KEY_INPUT_S);
+	Add(KEY_INPUT_D);
+	Add(KEY_INPUT_A);
+	Add(KEY_INPUT_W);
 
-	InputManager::GetInstance().Add(KEY_INPUT_Q);
-	InputManager::GetInstance().Add(KEY_INPUT_E);
+	Add(KEY_INPUT_Q);
+	Add(KEY_INPUT_E);
 
-	InputManager::GetInstance().Add(KEY_INPUT_R);
+	Add(KEY_INPUT_R);
 
 	InputManager::MouseInfo info;
 
@@ -100,6 +100,14 @@ void InputManager::Update(void)
 	SetJPadInState(JOYPAD_NO::PAD3);
 	SetJPadInState(JOYPAD_NO::PAD4);
 
+}
+
+void InputManager::Destroy(void)
+{
+	keyInfos_.clear();
+	mouseInfos_.clear();
+	instance_ = nullptr;
+	delete instance_;
 }
 
 void InputManager::Add(int key)
@@ -174,7 +182,6 @@ InputManager::InputManager(const InputManager& manager)
 
 InputManager::~InputManager(void)
 {
-	delete instance_;
 }
 
 const InputManager::Info& InputManager::Find(int key) const

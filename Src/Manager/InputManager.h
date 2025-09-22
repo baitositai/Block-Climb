@@ -71,6 +71,9 @@ public:
 	void Init(void);
 	void Update(void);
 
+	//‰ğ•úˆ—
+	void Destroy(void);
+
 	// ”»’è‚ğs‚¤ƒL[‚ğ’Ç‰Á
 	void Add(int key);
 

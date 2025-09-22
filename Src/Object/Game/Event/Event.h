@@ -47,19 +47,35 @@ public:
 	static constexpr int FREQUENCY = 15;
 
 
+	//コンストラクタ
+	Event();
+
+	//デストラクタ
+	~Event();
+
+	//初期化
 	void Init(LevelManager* parent);
+
+	//更新
 	void Update();
+
+	//描画
 	void Draw();
+
+	//解放
 	void Release();
 
+	//リセット
 	void Reset();
+
+	//読み込み
 	void Load();
 
 	//アイコンの描画
 	void IconDraw(Vector2 pos);
 
 	//エフェクトの描画
-	void EfectDraw();
+	void EffectDraw();
 
 	//イベントをランダム確率で発生
 	void EventOccurs();

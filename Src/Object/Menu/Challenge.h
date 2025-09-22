@@ -42,7 +42,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	/// <param name="parent"></param>親インスタンスを受け取る
+	/// <param name="parent">親インスタンスを受け取る</param>
 	void Init(MenuScene* parent);
 
 	//更新
@@ -57,7 +57,7 @@ public:
 	/// <summary>
 	/// 選択したレベルを返す
 	/// </summary>
-	/// <returns></returns>課題レベル
+	/// <returns>課題レベル</returns>
 	Data::LEVEL GetChallengeData();
 
 private:

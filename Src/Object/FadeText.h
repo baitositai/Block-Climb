@@ -17,11 +17,11 @@ public:
 	/// <summary>
 	/// テキストの設定
 	/// </summary>
-	/// <param name="font"></param>フォント
-	/// <param name="color"></param>色
-	/// <param name="fontSize"></param>サイズ
-	/// <param name="pos"></param>座標
-	/// <param name="text"></param>テキスト
+	/// <param name="font">フォント</param>
+	/// <param name="color">色</param>
+	/// <param name="fontSize">サイズ</param>
+	/// <param name="pos">座標</param>
+	/// <param name="text">テキスト</param>
 	void SetText(int font, int color,int fontSize,Vector2 pos,std::string text);
 
 	//更新
@@ -36,7 +36,7 @@ public:
 	/// <summary>
 	/// 座標の設定
 	/// </summary>
-	/// <param name="pos"></param>座標
+	/// <param name="pos">座標</param>
 	void SetPos(Vector2 pos);
 
 private:
@@ -61,6 +61,4 @@ private:
 
 	//テキスト
 	std::string text_;
-
 };
-

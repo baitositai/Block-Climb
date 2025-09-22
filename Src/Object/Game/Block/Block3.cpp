@@ -3,6 +3,9 @@
 
 Block3::Block3()
 {
+    fieldNeo_.clear();
+    roleNeo_.clear();
+    decLineHeights_.clear();
 }
 
 Block3::~Block3()

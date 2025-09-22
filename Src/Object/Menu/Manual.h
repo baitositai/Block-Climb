@@ -19,7 +19,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	/// <param name="parent"></param>親クラス
+	/// <param name="parent">親クラス</param>
 	void Init(MenuScene* parent);
 
 	//更新
@@ -37,7 +37,7 @@ private:
 	bool isStick_;
 
 	//メニュー選択カウント
-	int manuSle_;
+	int menuSle_;
 
 	//画像
 	int imgManual_[MANUAL_TYPE];

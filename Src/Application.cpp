@@ -7,6 +7,9 @@
 
 Application* Application::instance_ = nullptr;
 
+const std::string Application::FONT_DOT = "ベストテンDOT";
+const std::string Application::FONT_BOKUTATI = "ぼくたちのゴシック";
+
 const std::string Application::PATH_MOVIE = "Data/Movie/";
 const std::string Application::PATH_IMAGE = "Data/Image/";
 const std::string Application::PATH_CSV = "Data/Csv/";
@@ -32,10 +35,10 @@ Application& Application::GetInstance(void)
 void Application::Init(void)
 {
 	// アプリケーションの初期設定
-	SetWindowText("2316012_坂田桃侍");
+	SetWindowText("坂田桃侍_BLOCK_CLIMB");
 
 	// ウィンドウサイズ
-	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, 32);
+	SetGraphMode(SCREEN_SIZE_X, SCREEN_SIZE_Y, COLOR_BIT_DEPTH);
 	ChangeWindowMode(true);
 
 	// DxLibの初期化
@@ -55,6 +58,22 @@ void Application::Init(void)
 	// シーン管理初期化	
 	SoundManager::CreateInstance();
 	SceneManager::CreateInstance();
+
+	// フォント初期化
+	// フォントをシステムに登録
+	fontPath_[0] = "ベストテンDOT.otf";
+	fontPath_[1] = "bokutachi.otf";
+	for (int i = 0; i < FONT_TYPES; i++)
+	{
+		if (AddFontResourceEx(
+			(Application::PATH_FONT + fontPath_[i]).c_str(),
+			FR_PRIVATE,
+			NULL)
+			== -1)
+		{
+			return;
+		}
+	}
 }
 
 void Application::Run(void)
@@ -70,7 +89,6 @@ void Application::Run(void)
 
 		inputManager.Update();
 		sceneManager.Update();
-		//soundManager.Update();
 
 		sceneManager.Draw();
 
@@ -82,10 +100,35 @@ void Application::Run(void)
 
 void Application::Release(void)
 {
+	//クラスの解放
+	SceneManager::GetInstance().Destroy();
+	SoundManager::GetInstance().Destroy();
+	InputManager::GetInstance().Destroy();
+	Data::GetInstance().Destroy();
+
+	// フォント登録解除
+	for (int i = 0; i < FONT_TYPES; i++)
+	{
+		if (RemoveFontResourceEx(
+			(Application::PATH_FONT + fontPath_[i]).c_str(),
+			FR_PRIVATE,
+			NULL)
+			== -1)
+		{
+			return;
+		}
+	}
+
 	// DxLib終了
 	if (DxLib_End() == -1)
 	{
 		isReleaseFail_ = true;
+	}
+
+	if (instance_ != nullptr)
+	{
+		delete instance_;
+		instance_ = nullptr;
 	}
 }
 
@@ -107,5 +150,4 @@ Application::Application(void)
 
 Application::~Application(void)
 {
-	delete instance_;
 }

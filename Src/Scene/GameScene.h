@@ -23,7 +23,7 @@ public:
 	static constexpr float FINISH_TO_WAIT_TIME = 2.0f;
 
 	//BGM種類数
-	static constexpr int BGMS = 4;
+	static constexpr int RAND_BGMS = 4;
 
 	//ゲーム状態
 	enum class STATE
@@ -59,13 +59,13 @@ public:
 	/// <summary>
 	/// 選択処理の許可の設定
 	/// </summary>
-	/// <param name="value"></param>選択の許可
+	/// <param name="value">選択の許可</param>
 	void SetIsSelect(const bool value);
 
 	/// <summary>
 	/// ゲーム状態の変更
 	/// </summary>
-	/// <param name="state"></param>ゲーム状態
+	/// <param name="state">ゲーム状態</param>
 	void ChangeState(const STATE state);
 
 	//新記録か調べる

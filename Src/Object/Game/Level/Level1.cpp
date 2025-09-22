@@ -77,8 +77,11 @@ void Level1::Draw(void)
 void Level1::Release(void)
 {
 	side_->Release();
+	delete side_;
 	block_->Release();
+	delete block_;
 	moon_->Release();
+	delete moon_;
 	LevelManager::Release();
 }
 

@@ -23,7 +23,7 @@ void Side5::Reset()
 	sideBlockType_ = SIDE_IMG_INDEX;
 
 	time_ = TIME_LIMIT;
-	minitu_ = TIME_LIMIT_MAX_MINUTES;
+	minute_ = TIME_LIMIT_MAX_MINUTES;
 	second_ = 0;
 }
 
@@ -38,7 +38,7 @@ void Side5::Update()
 		level_->SetGameOver(true);
 	}	
 	
-	minitu_ = (time_ / SECONDS_IN_AN_HOUR) % TIME_LIMIT_MAX_MINUTES;
+	minute_ = (time_ / SECONDS_IN_AN_HOUR) % TIME_LIMIT_MAX_MINUTES;
 	second_ = time_ / SECONDS_IN_A_MINUTE % SECONDS_IN_A_MINUTE;
 }
 
@@ -103,7 +103,7 @@ void Side5::Draw(void)
         0xffffff,
         dataFont_,
         "%d•ª %d •b",
-        minitu_,
+        minute_,
         second_
     );
 

@@ -121,105 +121,105 @@ public:
 	/// <summary>
 	/// ブロックの縦に置かれてる数を返す
 	/// </summary>
-	/// <param name="y"></param>ブロック縦の数最新の値
+	/// <param name="y">ブロック縦の数最新の値</param>
 	/// <returns></returns>
 	int GetFieldBlockY(int y);
 
 	/// <summary>
 	/// 現在の高さを返す
 	/// </summary>
-	/// <returns></returns>積み上げた高さ
+	/// <returns>積み上げた高さ</returns>
 	int GetBlockHeight();
 
 	/// <summary>
 	/// 課題用ブロックの置く数を返す
 	/// </summary>
-	/// <returns></returns>課題用ブロックの置く数
+	/// <returns>課題用ブロックの置く数</returns>
 	int GetBlockCnt();
 
 	/// <summary>
 	/// 消したラインの数
 	/// </summary>
-	/// <returns></returns>消したラインの数
+	/// <returns>消したラインの数</returns>
 	int GetCntLine();
 
 	/// <summary>
 	/// 落下速度を返す
 	/// </summary>
-	/// <returns></returns>落下速度
+	/// <returns>落下速度</returns>
 	float GetFallSpeed();
 
 	/// <summary>
 	/// カメラ座標を返す
 	/// </summary>
-	/// <returns></returns>カメラ座標
+	/// <returns>カメラ座標</returns>
 	Vector2F GetCameraPos();
 
 	/// <summary>
 	/// プレイヤー座標を返す
 	/// </summary>
-	/// <returns></returns>プレイヤー座標
+	/// <returns>プレイヤー座標</returns>
 	Vector2F GetPlayerPos();
 
 	/// <summary>
 	/// プレイヤーとミノの位置からミノの座標を返す
 	/// </summary>
-	/// <param name="pPos"></param>プレイヤー座標
-	/// <returns></returns>ミノの座標
+	/// <param name="pPos">プレイヤー座標</param>
+	/// <returns>ミノの座標</returns>
 	Vector2F GetMinoBlockPos(Vector2F pPos);
 
 	/// <summary>
 	/// 月のクラスを返す
 	/// </summary>
-	/// <returns></returns>月
+	/// <returns>月</returns>
 	virtual Moon* GetMoonInstans();
 
 	/// <summary>
 	/// イベント状態を返す
 	/// </summary>
-	/// <returns></returns>イベントの状態
+	/// <returns>イベントの状態</returns>
 	Event::EVENT GetEventState();
 
 	/// <summary>
 	/// フィールドサイズを返す
 	/// </summary>
-	/// <returns></returns>フィールドサイズ
+	/// <returns>フィールドサイズ</returns>
 	Vector2 GetFieldSize();
 
 	/// <summary>
 	/// 地面のサイズを返す
 	/// </summary>
-	/// <returns></returns>地面サイズ
+	/// <returns>地面サイズ</returns>
 	Vector2 GetGroundSize();
 
 	/// <summary>
 	/// ステージ全体のサイズ返す
 	/// </summary>
-	/// <returns></returns>ステージ全体のサイズ
+	/// <returns>ステージ全体のサイズ</returns>
 	Vector2 GetStageSize();
 
 	/// <summary>
 	/// プレイヤーの初期位置を返す
 	/// </summary>
-	/// <returns></returns>プレイヤーの初期位置
+	/// <returns>プレイヤーの初期位置</returns>
 	Vector2F GetFirstPlayerPos();
 
 	/// <summary>
 	/// カメラの初期位置を返す
 	/// </summary>
-	/// <returns></returns>カメラの初期位置
+	/// <returns>カメラの初期位置</returns>
 	Vector2F GetFirstCameraPos();
 
 	/// <summary>
 	/// ゴールの位置を返す
 	/// </summary>
-	/// <returns></returns>ゴールの位置を返す
+	/// <returns>ゴールの位置を返す</returns>
 	Vector2 GetGoalPos();
 
 	/// <summary>
 	/// 中心位置に合わせる用の値を返す
 	/// </summary>
-	/// <returns></returns>中心位置に合わせる用の値
+	/// <returns>中心位置に合わせる用の値</returns>
 	Vector2 GetGameCenter();
 
 protected:

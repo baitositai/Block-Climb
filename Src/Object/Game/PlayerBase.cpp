@@ -23,6 +23,15 @@ PlayerBase::PlayerBase(void)
 	numAnim_ = 0;
 	pos_ = { 0,0 };
 	speed_ = 0;
+	maxSpeed_ = 0;
+	rot_ = 0.0f;
+	isDeath_ = false;
+	deathCnt_ = 0;
+	fallSound_ = false;
+	hit_ = HIT::NONE;
+	hitPos_ = { 0, 0 };
+	hitBox_ = { 0, 0 };
+	pad_ = InputManager::JOYPAD_NO::PAD1;
 
 	for (int i = 0; i < static_cast<int>(ANIM_STATE::MAX); i++)
 	{

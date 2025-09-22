@@ -9,7 +9,7 @@ Manual::Manual(void)
 {
 	for (int i = 0; i < MANUAL_TYPE; i++) { imgManual_[i] = -1; }
 	isStick_ = false;
-	manuSle_ = -1;
+	menuSle_ = -1;
 	menu_ = nullptr;
 }
 
@@ -20,7 +20,7 @@ Manual::~Manual(void)
 void Manual::Init(MenuScene* parent)
 {
 	menu_ = parent;
-	manuSle_ = 0;
+	menuSle_ = 0;
 
 	imgManual_[0] = LoadGraph((Application::PATH_IMAGE + "Manual/マニュアル1.png").c_str());
 	imgManual_[1] = LoadGraph((Application::PATH_IMAGE + "Manual/マニュアル2.png").c_str());
@@ -40,7 +40,7 @@ void Manual::Update(void)
 	{
 		menu_->SetState(MenuScene::STATE::NONE);
 		menu_->SetPlayerState(MenuPlayer::MOVE_STATE::ADMISSION);
-		manuSle_ = 0;
+		menuSle_ = 0;
 		snd.PlayEffectSound(SoundManager::EFFECT_TYPE::MENU, static_cast<int>(SoundManager::MENU::MENU_CANCEL));
 	}
 
@@ -49,22 +49,22 @@ void Manual::Update(void)
 		(stickX > 0 && !isStick_))
 	{
 		isStick_ = true;
-		manuSle_++;
+		menuSle_++;
 		snd.PlayEffectSound(SoundManager::EFFECT_TYPE::MENU, static_cast<int>(SoundManager::MENU::MENU_SELECT));
-		if (manuSle_ >= MANUAL_TYPE)
+		if (menuSle_ >= MANUAL_TYPE)
 		{
-			manuSle_ = 0;
+			menuSle_ = 0;
 		}
 	}
 	else if (ins.IsTrgDown(KEY_INPUT_LEFT) ||
 		(stickX < 0 && !isStick_))
 	{
 		isStick_ = true;
-		manuSle_--;
+		menuSle_--;
 		snd.PlayEffectSound(SoundManager::EFFECT_TYPE::MENU, static_cast<int>(SoundManager::MENU::MENU_SELECT));
-		if (manuSle_ < 0)
+		if (menuSle_ < 0)
 		{
-			manuSle_ = MANUAL_TYPE - 1;
+			menuSle_ = MANUAL_TYPE - 1;
 		}
 	}
 
@@ -81,7 +81,7 @@ void Manual::Draw(void)
 		Application::SCREEN_SIZE_Y / 2,
 		1.0f,
 		0.0f,
-		imgManual_[manuSle_],
+		imgManual_[menuSle_],
 		true,
 		false);
 }

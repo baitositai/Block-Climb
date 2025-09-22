@@ -1,8 +1,9 @@
+#include "Level2.h"
+
 #include "../../../Application.h"
-//#include "../../../Manager/InputManager.h"
 #include "../../../Manager/SoundManager.h"
 #include "../../../Utility/Collision.h"
-#include "Level2.h"
+
 #include "../Block/BlockBase.h"
 #include "../Block/Block2.h"
 #include "../PlayerBase.h"
@@ -14,6 +15,7 @@
 
 Level2::Level2(void)
 {
+	moon_ = nullptr;
 }
 
 Level2::~Level2(void)
@@ -72,8 +74,14 @@ void Level2::Draw(void)
 void Level2::Release(void)
 {
 	side_->Release();
+	delete side_;
+
 	block_->Release();
+	delete block_;
+
 	moon_->Release();
+	delete moon_;
+
 	LevelManager::Release();
 }
 

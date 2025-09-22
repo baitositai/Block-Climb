@@ -1,5 +1,13 @@
 #include "MarasonCamera.h"
 
+MarasonCamera::MarasonCamera()
+{
+}
+
+MarasonCamera::~MarasonCamera()
+{
+}
+
 void MarasonCamera::CameraScrollMove()
 {
 	Camera::CameraScrollMove();

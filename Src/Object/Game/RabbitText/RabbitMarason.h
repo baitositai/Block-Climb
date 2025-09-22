@@ -36,7 +36,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	/// <param name="parent"></param>親クラスを受け取る
+	/// <param name="parent">親クラスを受け取る</param>
 	void Init(LevelManager* parent);
 
 	void Reset() override;					
@@ -47,7 +47,7 @@ public:
 	/// <summary>
 	/// テキストに関する値を設定
 	/// </summary>
-	/// <param name="value"></param>テキストの番号を指定
+	/// <param name="value">テキストの番号を指定</param>
 	void SetTextData(int value);
 
 private:

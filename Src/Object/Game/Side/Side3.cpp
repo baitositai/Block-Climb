@@ -58,6 +58,9 @@ void Side3::Draw(void)
 
 	int blockCnt = Block3::CREAL_LINE - level_->GetCntLine();
 
+	//0未満を表示させない
+	if (blockCnt <= 0) { blockCnt = 0; }
+
 	//データの描画
 	DrawFormatStringToHandle(
 		boxPos1.x + SIDE_BOX_INTERVAL_X * 2,

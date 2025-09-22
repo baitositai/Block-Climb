@@ -18,7 +18,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	/// <param name="parent"></param>親インスタンス
+	/// <param name="parent">親インスタンス</param>
 	void Init(MenuScene* parent);
 
 	//更新

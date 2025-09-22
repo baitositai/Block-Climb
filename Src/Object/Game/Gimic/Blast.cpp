@@ -12,6 +12,15 @@ Blast::Blast(void)
     {
         imgBlasts_[i] = 0;
     }
+	level_ = nullptr;
+	block_ = nullptr;
+	pos_ = { 0,0 };
+	size_ = { 0,0 };
+	state_ = STATE::NONE;
+	blastCntAnim_ = 0;
+	blastIdxAnim_ = 0;
+	blastSpeedAnim_ = 0.0f;
+	createCnt_ = 0.0f;
 }
 
 Blast::~Blast(void)

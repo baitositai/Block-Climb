@@ -32,7 +32,7 @@ void Data::Destory(void)
 //ƒƒ“ƒo[ŠÖ”
 Data::Data(void)
 {
-	Data_ = 2;
+	Data_ = DEFAULT_DATA;
 	marasonData_ = 0;
 }
 
@@ -41,12 +41,18 @@ Data::~Data(void)
 
 }
 
-void Data::SetDeta(int pos)
+void Data::Destroy(void)
+{
+	instance_ = nullptr;
+	delete instance_;
+}
+
+void Data::SetData(int pos)
 {
 	Data_ = pos;
 }
 
-int Data::GetDeta(void)
+int Data::GetData(void)
 {
 	return Data_;
 }

@@ -7,6 +7,24 @@
 
 FireBall::FireBall()
 {
+	//初期化
+	level_ = nullptr;
+	speed_ = 0.0f;
+	cntAnim_ = 0.0f;
+	animSpeed_ = 0.0f;
+	idxAnim_ = 0;
+	//初期座標
+	pos_ = { 0,0 };
+	//初期ステート
+	state_ = STATE::NONE;
+	//画像の初期化
+	for (int i = 0; i < static_cast<int>(STATE::NONE); i++)
+	{
+		for (int j = 0; j < ANIM_NUM; j++)
+		{
+			imgFireBall_[i][j] = 0;
+		}
+	}
 }
 
 FireBall::~FireBall()

@@ -18,6 +18,11 @@
 
 Marason::Marason(void)
 {
+	eventLine_ = 0;
+	fireCnt_ = 0;
+	isChange_ = false;
+	paramCnt_ = 0;
+	rabbit_ = nullptr;
 }
 
 Marason::~Marason(void)
@@ -135,7 +140,7 @@ void Marason::Draw(void)
 	player_->Draw();
 
 	//エフェクトの描画
-	event_->EfectDraw();
+	event_->EffectDraw();
 
 	//カメラの描画
 	camera_->Draw();
@@ -170,12 +175,25 @@ void Marason::Release(void)
 	}
 	
 	rabbit_->Release();	
+	delete rabbit_;
+
 	event_->Release();
+	delete event_;
+	
 	side_->Release();
+	delete side_;
+	
 	block_->Release();
+	delete block_;
+	
 	backGround_->Release();
+	delete backGround_;
+	
 	player_->Release();
+	delete player_;
+	
 	camera_->Release();
+	delete camera_;
 }
 
 void Marason::SetParam()
